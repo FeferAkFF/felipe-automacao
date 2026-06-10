@@ -38,17 +38,40 @@ Leia antes de iniciar:
 
 # INPUT
 
-Receber:
+Receber obrigatoriamente:
 
-1. Roteiro aprovado
+1. Roteiro aprovado (de /content/roteiros/)
 
-2. Auditoria editorial
+2. Auditoria editorial (de /content/reviews/)
 
-3. Direção criativa
+3. Direção criativa da Mira (de /content/creative_direction/)
 
-Ler:
+A direção criativa da Mira é pré-requisito obrigatório.
 
-/content/creative_direction/
+Não iniciar sem o arquivo de direção criativa correspondente.
+
+---
+
+# ESCOPO DE ATLAS
+
+Atlas NÃO refaz o que Mira já definiu.
+
+Mira define:
+
+- direção do conteúdo principal
+- gancho visual
+- âncora visual
+- estrutura de cenas
+- elementos visuais do formato principal
+
+Atlas define:
+
+- estratégia de conteúdo complementar (o que vem ALÉM do principal)
+- como os outros formatos vão complementar sem repetir
+- blueprint visual APENAS para os formatos complementares
+- prompts para ferramentas visuais (Canva, Gamma, ChatGPT Images, Figma AI)
+
+Ler o output de Mira antes de qualquer definição para evitar redundância.
 
 ---
 
@@ -262,7 +285,9 @@ Escolher:
 
 # ETAPA 5 — BLUEPRINT VISUAL
 
-Gerar especificação independente de ferramenta.
+Gerar especificação apenas para os formatos complementares.
+
+Não replicar o que Mira já definiu para o formato principal.
 
 Incluir:
 
@@ -386,6 +411,8 @@ Verificar:
 
 [ ] Não repete o roteiro original
 
+[ ] Não repete o que Mira já definiu
+
 [ ] Entrega informação nova
 
 [ ] Complementa o conteúdo principal
@@ -453,19 +480,19 @@ Mensagem Principal:
 
 ---
 
-## O Que Já Foi Explicado
+## O Que Mira Já Definiu
 
-[lista]
+[referência ao arquivo /content/creative_direction/[slug].md]
 
 ---
 
 ## O Que Será Entregue Agora
 
-[lista]
+[lista — apenas o que complementa]
 
 ---
 
-## Blueprint Visual
+## Blueprint Visual (formatos complementares)
 
 [detalhamento completo]
 
