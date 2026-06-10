@@ -1,4 +1,61 @@
 {
-  "insights": [],
-  "last_updated": null
+  "insights": [
+    {
+      "id": "MI001",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "plataforma": "Mercado Livre",
+      "categoria": "anuncios",
+      "insight": "Títulos técnicos vs. populares: sellers escrevem usando nomenclatura de produto (especificação), mas compradores pesquisam usando linguagem de uso (contexto). Gap entre os dois é diretamente mensurável via ML Trends.",
+      "aplicacao_pratica": "Usar ML Trends para validar termos de busca antes de finalizar título. Priorizar termos de uso sobre termos técnicos.",
+      "fonte": "Experiência própria Felipe — análise de 500 anúncios Tulele",
+      "verificado": true
+    },
+    {
+      "id": "MI002",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "plataforma": "Mercado Livre e Shopee",
+      "categoria": "atendimento",
+      "insight": "Ambas as plataformas oferecem auto-reply nativo sem custo adicional. A maioria dos sellers não usa o recurso e perde horas respondendo as mesmas 4-7 perguntas manualmente.",
+      "aplicacao_pratica": "Configurar auto-reply nativo antes de avaliar chatbots pagos. As 7 perguntas mais comuns cobrem ~80% do volume de atendimento.",
+      "fonte": "Roteiro aprovado — dado sobre limite de respostas automáticas do ML PENDENTE de verificação",
+      "verificado": false,
+      "pendencia": "Verificar limite exato de respostas automáticas no painel do ML"
+    },
+    {
+      "id": "MI003",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "plataforma": "Shopee",
+      "categoria": "produto",
+      "insight": "Impressão 3D como modelo de produção própria elimina dependência de fornecedor, elimina frete de compra e permite atender nichos onde fornecedores tradicionais não chegam. Produto (marcador de bolo) gera pedidos recorrentes diários.",
+      "aplicacao_pratica": "Avaliar quais categorias de produto têm baixa concorrência e demanda recorrente para produção 3D. Critérios: tamanho pequeno, demanda constante, nicho específico, margem suficiente.",
+      "fonte": "Operação real Tulele — marcador de bolo Shopee",
+      "verificado": true
+    },
+    {
+      "id": "MI004",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "plataforma": "Mercado Livre",
+      "categoria": "anuncios",
+      "insight": "Foto com fundo branco era o padrão de conversão — deixou de ser. Foto em contexto de uso (produto no ambiente real de aplicação) converte melhor especialmente para categorias de utilidades domésticas.",
+      "aplicacao_pratica": "Para produtos de cozinha/casa: pelo menos 1 foto em contexto de uso na galeria. Não precisa de estúdio — ambiente doméstico real funciona.",
+      "fonte": "Análise do catálogo Tulele — experiência própria Felipe",
+      "verificado": true
+    },
+    {
+      "id": "MI005",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "plataforma": "Geral",
+      "categoria": "ia_aplicada",
+      "insight": "IA (ChatGPT/Claude) é eficaz para estruturar e calcular em pesquisa de produtos, mas NÃO acessa dados em tempo real de marketplaces. O fluxo correto é: IA estrutura a análise → seller verifica os números reais na plataforma.",
+      "aplicacao_pratica": "Usar IA para o framework de análise, não para os dados. Validação manual obrigatória antes de qualquer decisão de compra.",
+      "fonte": "Correção editorial do ciclo 01 — Vero sinalizou imprecisão no roteiro pesquisa-produtos-ia",
+      "verificado": true
+    }
+  ],
+  "last_updated": "2026-06-10"
 }

@@ -1,4 +1,65 @@
 {
-  "patterns": [],
-  "last_updated": null
+  "patterns": [
+    {
+      "id": "P001",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "nome": "Número de escala como gancho de abertura",
+      "descricao": "Número grande e concreto na abertura para o scroll antes de qualquer palavra ser dita. Eficaz quando o número representa escala real da operação.",
+      "exemplo": "500 anúncios ruins — Reels prova-social-automacao-anuncios-lote",
+      "formato": "Reels",
+      "pilar": "Prova Social",
+      "impacto_estimado": "Alto",
+      "condicao": "O número deve ser real e verificável. Número fictício ou genérico perde o efeito."
+    },
+    {
+      "id": "P002",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "nome": "Produto físico em câmera como prova imediata",
+      "descricao": "Segurar o produto real nas mãos durante a abertura cria prova visual impossível de falsificar. Funciona especialmente quando o produto é incomum (impressão 3D, nicho específico).",
+      "exemplo": "Marcador de bolo impresso — Reels prova-social-impressao-3d-shopee",
+      "formato": "Reels",
+      "pilar": "Prova Social",
+      "impacto_estimado": "Alto",
+      "condicao": "O produto deve ser reconhecível pelo público e visualmente distinto do comum"
+    },
+    {
+      "id": "P003",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "nome": "Comparação lado a lado (errado vs. certo)",
+      "descricao": "Mostrar versão 'ruim' riscada/vermelha ao lado de versão 'boa' azul gera identificação imediata. Eficaz para títulos de anúncios, descrições, fotos.",
+      "exemplo": "Título técnico vs. título popular — Reels erros-anuncios-marketplace",
+      "formato": "Reels e Carrossel",
+      "pilar": "Autoridade e Educação",
+      "impacto_estimado": "Alto",
+      "condicao": "O exemplo 'errado' deve ser algo que o seguidor reconhece que já fez"
+    },
+    {
+      "id": "P004",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "nome": "Carrossel como ativo reutilizável (alta taxa de salvamento)",
+      "descricao": "Carrosséis com listas práticas, checklists e frameworks geram mais salvamentos que visualizações. Devem ser construídos para serem consultados depois, não apenas lidos uma vez.",
+      "exemplo": "Pesquisa de produtos com IA — as 5 perguntas literais para copiar",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "impacto_estimado": "Médio-Alto",
+      "condicao": "O conteúdo deve ser diretamente aplicável, não apenas informativo"
+    },
+    {
+      "id": "P005",
+      "data": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "nome": "Tom autocrítico como credencial de autoridade",
+      "descricao": "'Eu cometia esse erro' é mais eficaz do que 'sellers cometem esse erro' para construir autoridade. A autocrítica autentica a experiência.",
+      "exemplo": "3 erros que eu cometia em todos os anúncios — Reels erros-anuncios-marketplace",
+      "formato": "Reels",
+      "pilar": "Autoridade",
+      "impacto_estimado": "Alto",
+      "condicao": "O erro deve ser real — nunca inventar falha que não aconteceu"
+    }
+  ],
+  "last_updated": "2026-06-10"
 }

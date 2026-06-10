@@ -1,8 +1,57 @@
 {
-  "approved": [],
-  "approved_with_changes": [],
+  "approved": [
+    {
+      "slug": "2026-06-10-prova-social-automacao-anuncios-lote",
+      "file": "/content/roteiros/2026-06-10-prova-social-automacao-anuncios-lote.md",
+      "review": "/content/reviews/2026-06-10-prova-social-automacao-anuncios-lote-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Reels",
+      "pilar": "Prova Social",
+      "score": 61
+    },
+    {
+      "slug": "2026-06-10-prova-social-impressao-3d-shopee",
+      "file": "/content/roteiros/2026-06-10-prova-social-impressao-3d-shopee.md",
+      "review": "/content/reviews/2026-06-10-prova-social-impressao-3d-shopee-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Reels",
+      "pilar": "Prova Social",
+      "score": 63
+    },
+    {
+      "slug": "2026-06-10-erros-anuncios-marketplace",
+      "file": "/content/roteiros/2026-06-10-erros-anuncios-marketplace.md",
+      "review": "/content/reviews/2026-06-10-erros-anuncios-marketplace-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Reels",
+      "pilar": "Autoridade",
+      "score": 64
+    }
+  ],
+  "approved_with_changes": [
+    {
+      "slug": "2026-06-10-pesquisa-produtos-ia",
+      "file": "/content/roteiros/2026-06-10-pesquisa-produtos-ia.md",
+      "review": "/content/reviews/2026-06-10-pesquisa-produtos-ia-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Carrossel",
+      "pilar": "Educação",
+      "score": 54,
+      "pending_changes": "Corrigir slide 3 — capacidades da IA precisam de qualificação. Ver review para versão sugerida."
+    },
+    {
+      "slug": "2026-06-10-atendimento-automatico-ml-shopee",
+      "file": "/content/roteiros/2026-06-10-atendimento-automatico-ml-shopee.md",
+      "review": "/content/reviews/2026-06-10-atendimento-automatico-ml-shopee-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Carrossel",
+      "pilar": "Educação",
+      "score": 51,
+      "pending_changes": "Verificar limite real de respostas automáticas no painel do ML. Adicionar dado real da operação Tulele."
+    }
+  ],
   "rejected": [],
-  "last_updated": null,
+  "last_updated": "2026-06-10",
   "_schema": {
     "entry": {
       "slug": "AAAA-MM-DD-nome-do-tema",

@@ -1,4 +1,73 @@
 {
-  "opportunities": [],
-  "last_updated": null
+  "opportunities": [
+    {
+      "id": "OPP001",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Precificação de produtos de impressão 3D",
+      "descricao": "Como calcular o preço de venda de produto impresso em 3D considerando custo de material, tempo de impressão, depreciação da máquina e margem para marketplace. Complemento natural do conteúdo de impressão 3D + Shopee.",
+      "pilar": "Educação",
+      "formato_sugerido": "Carrossel",
+      "prioridade": "Alta",
+      "origem": "Atlas identificou como expansão não coberta no ciclo 01",
+      "dependencias": "Dado real de Felipe: custo de filamento, preço de venda do marcador de bolo, margem efetiva"
+    },
+    {
+      "id": "OPP002",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Auditoria completa de catálogo ML — passo a passo",
+      "descricao": "Tutorial completo de como fazer diagnóstico do próprio catálogo: quais anúncios têm problema, como priorizar, como corrigir em lote. Sequência natural após o Reels dos 3 erros.",
+      "pilar": "Educação",
+      "formato_sugerido": "Carrossel",
+      "prioridade": "Alta",
+      "origem": "Atlas identificou como complemento não entregue no Reels erros-anuncios-marketplace"
+    },
+    {
+      "id": "OPP003",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Resultado da automação de atendimento na Tulele",
+      "descricao": "Case real: quantas mensagens por semana a Tulele recebe, qual % é respondida automaticamente, quanto tempo economiza por semana. Dado que estava faltando no roteiro de atendimento automático.",
+      "pilar": "Prova Social",
+      "formato_sugerido": "Reels",
+      "prioridade": "Alta",
+      "origem": "Vero sinalizou falta de dado real da Tulele no roteiro de atendimento. Dependente de coleta de dados por Felipe.",
+      "dependencias": "Felipe precisa levantar: volume de mensagens/semana, % respondido automaticamente, tempo economizado"
+    },
+    {
+      "id": "OPP004",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Prompt completo para geração de anúncios em lote",
+      "descricao": "Mostrar o prompt exato usado para gerar títulos e descrições a partir de fotos de produto. Conteúdo de alto valor que complementa o Reels dos 500 anúncios.",
+      "pilar": "Educação",
+      "formato_sugerido": "Carrossel",
+      "prioridade": "Média",
+      "origem": "Atlas identificou como conteúdo complementar de alta taxa de salvamento"
+    },
+    {
+      "id": "OPP005",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Financeiro da operação Tulele — controle com planilha automatizada",
+      "descricao": "Como acompanhar lucro real em marketplace descontando tarifas, frete e devoluções. Conteúdo que ancora Felipe como operador sério, não apenas vendedor.",
+      "pilar": "Educação",
+      "formato_sugerido": "Carrossel",
+      "prioridade": "Média",
+      "origem": "Tema identificado como gap no pilar de automação — ainda não coberto"
+    },
+    {
+      "id": "OPP006",
+      "data_identificacao": "2026-06-10",
+      "ciclo": "ciclo-01",
+      "tema": "Como encontrar arquivos 3D para imprimir e vender",
+      "descricao": "Onde encontrar arquivos STL, quais plataformas usar (Thingiverse, Printables, Cults3D), como avaliar licença de uso comercial. Complemento do conteúdo de impressão 3D.",
+      "pilar": "Educação",
+      "formato_sugerido": "Carrossel",
+      "prioridade": "Baixa",
+      "origem": "Atlas identificou como expansão não coberta no ciclo 01"
+    }
+  ],
+  "last_updated": "2026-06-10"
 }

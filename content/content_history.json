@@ -1,5 +1,69 @@
 {
-  "posts": [],
-  "last_updated": null,
-  "themes_used": []
+  "posts": [
+    {
+      "tema": "Impressão 3D + Shopee — renda recorrente",
+      "slug": "2026-06-10-prova-social-impressao-3d-shopee",
+      "file": "/content/roteiros/2026-06-10-prova-social-impressao-3d-shopee.md",
+      "data_programacao": "2026-06-15",
+      "formato": "Reels",
+      "pilar": "Prova Social",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 63
+    },
+    {
+      "tema": "3 erros em anúncios do Mercado Livre",
+      "slug": "2026-06-10-erros-anuncios-marketplace",
+      "file": "/content/roteiros/2026-06-10-erros-anuncios-marketplace.md",
+      "data_programacao": "2026-06-16",
+      "formato": "Reels",
+      "pilar": "Autoridade",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 64
+    },
+    {
+      "tema": "Automação de anúncios em lote com IA",
+      "slug": "2026-06-10-prova-social-automacao-anuncios-lote",
+      "file": "/content/roteiros/2026-06-10-prova-social-automacao-anuncios-lote.md",
+      "data_programacao": "2026-06-18",
+      "formato": "Reels",
+      "pilar": "Prova Social",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 61
+    },
+    {
+      "tema": "Pesquisa de produtos rentáveis com IA",
+      "slug": "2026-06-10-pesquisa-produtos-ia",
+      "file": "/content/roteiros/2026-06-10-pesquisa-produtos-ia.md",
+      "data_programacao": "2026-06-19",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "prova_social_propria": false,
+      "status": "programado_com_ajustes",
+      "score_vero": 54,
+      "pendencias": "Corrigir slide 3 antes de publicar"
+    },
+    {
+      "tema": "Atendimento automático no ML e Shopee",
+      "slug": "2026-06-10-atendimento-automatico-ml-shopee",
+      "file": "/content/roteiros/2026-06-10-atendimento-automatico-ml-shopee.md",
+      "data_programacao": "2026-06-20",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "prova_social_propria": false,
+      "status": "programado_com_ajustes",
+      "score_vero": 51,
+      "pendencias": "Verificar limite real de respostas no ML e adicionar dado Tulele"
+    }
+  ],
+  "themes_used": [
+    "impressao-3d-shopee",
+    "erros-anuncios-marketplace",
+    "automacao-anuncios-lote-ia",
+    "pesquisa-produtos-ia",
+    "atendimento-automatico-ml-shopee"
+  ],
+  "last_updated": "2026-06-10"
 }
