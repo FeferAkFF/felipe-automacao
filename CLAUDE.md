@@ -314,7 +314,7 @@ felipe-automacao/
 │   ├── agent1_iris.md               # Radar de Tendências e Editor de Pauta
 │   ├── agent2_nova.md               # Editor de Conteúdo e Roteirista
 │   ├── agent3_saga.md               # Programação Editorial (roda após Vero)
-│   ├── agent4_clio.md               # Explorador de Ferramentas e Experimentos
+│   ├── agent4_clio.md               # Documentador da Operação
 │   ├── agent5_vero.md               # Auditor Editorial e Corretor
 │   ├── agent6_mira.md               # Diretor Criativo
 │   ├── agent7_atlas.md              # Arquiteto Visual e Conteúdo Complementar
@@ -337,6 +337,9 @@ felipe-automacao/
 │   ├── reviews/                     # Output: Vero
 │   ├── creative_direction/          # Output: Mira
 │   └── visual_prompts/              # Output: Atlas
+│
+├── operation_journal/               # Diário operacional — entradas livres de Felipe
+│   └── COMO-USAR.md                 # Guia de uso do journal
 │
 └── knowledge/                       # Memória de longo prazo do sistema
     ├── case_library.json            # Experimentos reais — escrito por Clio
@@ -377,6 +380,28 @@ PROGRAMAÇÃO
 FIM DO CICLO
   9. Memo     → consolida knowledge/, gera weekly_knowledge_report.md
 ```
+
+---
+
+# COMANDOS RÁPIDOS — INTERFACE COM FELIPE
+
+Felipe não precisa lembrar nome de agente. Os comandos abaixo devem ser reconhecidos
+e roteados corretamente pelo sistema:
+
+| Comando | O que faz |
+|---------|-----------|
+| `roda o ciclo` | Executa ciclo editorial completo (Íris → Nova → Vero → Mira → Atlas → Saga → Memo) |
+| `cria um post sobre X` | Gera roteiro para o tema X via Nova ou Clio conforme o tipo |
+| `registrar: [texto]` | Salva entrada no operation_journal sem criar conteúdo |
+| `conteúdo: [texto]` | Transforma a experiência descrita em roteiro via Clio |
+| `ideia: [texto]` | Salva no opportunity_backlog para ciclos futuros |
+| `mostra o calendário` | Exibe o weekly_calendar.md atual |
+| `mostra os roteiros` | Lista e exibe os roteiros em content/roteiros/ |
+| `mostra a fila` | Exibe o publishing_queue.json |
+
+Ao receber `registrar:` — salvar em /operation_journal/AAAA-MM-DD-[slug].md e confirmar.
+Ao receber `conteúdo:` — acionar Clio com o texto como input e gerar roteiro.
+Ao receber `ideia:` — adicionar ao /knowledge/opportunity_backlog.json e confirmar.
 
 ---
 
