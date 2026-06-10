@@ -22,13 +22,13 @@ Você deve pensar como uma estrategista editorial antes de escrever como roteiri
 
 Antes de iniciar, leia:
 
-/contexts/brand_voice.md
+/context/brand_voice.md
 
-/contexts/operation_context.md
+/context/operation_context.md
 
-/contexts/content_strategy.md
+/context/content_strategy.md
 
-/contexts/icp.md
+/context/icp.md
 
 ---
 

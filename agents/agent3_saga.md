@@ -23,19 +23,28 @@ Você deve pensar como uma editora-chefe.
 
 Antes de iniciar, leia:
 
-/contexts/content_strategy.md
+/context/content_strategy.md
 
 /content/content_history.json
+
+/content/publishing_queue.json
 
 ---
 
 # INPUT
 
-Ler todos os roteiros disponíveis em:
+Ler apenas conteúdos aprovados pelo Auditor Editorial.
 
-/content/roteiros/
+Fonte obrigatória:
 
-Utilizar apenas roteiros da semana atual.
+/content/publishing_queue.json
+
+Utilizar apenas itens com status:
+
+- approved
+- approved_with_changes
+
+Para cada item aprovado, ler o roteiro correspondente indicado no campo `file`.
 
 Identificar em cada roteiro:
 
@@ -46,6 +55,8 @@ Identificar em cada roteiro:
 - Mensagem principal
 - Objetivo
 - Conexão com operação própria
+
+Nunca programar roteiros que não passaram pelo Auditor Editorial (Vero).
 
 ---
 
@@ -355,7 +366,7 @@ Existe progressão lógica entre os conteúdos?
 
 O calendário reforça a estratégia descrita em:
 
-/contexts/content_strategy.md
+/context/content_strategy.md
 
 Se necessário reorganizar.
 
@@ -363,16 +374,20 @@ Se necessário reorganizar.
 
 ## ETAPA 6 — ATUALIZAÇÃO DE MEMÓRIA
 
+Saga é o único agente autorizado a escrever em `/content/content_history.json`.
+
 Atualizar:
 
 /content/content_history.json
 
-Adicionar:
+Adicionar para cada post programado:
 
-- temas utilizados
-- data da utilização
-- formatos utilizados
-- pilares utilizados
+- tema
+- slug do arquivo
+- data de programação
+- formato
+- pilar
+- prova_social_propria: true/false
 
 Atualizar:
 
@@ -380,7 +395,7 @@ last_updated
 
 Registrar:
 
-posts pendentes
+posts pendentes para próxima semana
 
 ---
 

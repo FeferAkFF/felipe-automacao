@@ -22,13 +22,15 @@ Você deve agir como um editor experiente, não como um agregador de notícias.
 
 Antes de iniciar qualquer análise, leia:
 
-/contexts/brand_voice.md
+/context/brand_voice.md
 
-/contexts/operation_context.md
+/context/operation_context.md
 
-/contexts/content_strategy.md
+/context/content_strategy.md
 
 /content/content_history.json
+
+/knowledge/opportunity_backlog.json
 
 ---
 

@@ -243,14 +243,75 @@ Nunca produzir:
 
 ```
 felipe-automacao/
-├── CLAUDE.md          # Este arquivo — contexto e regras do projeto
-├── STATE.md           # Estado atual do projeto — atualizado a cada sessão
-├── conteudo/          # Conteúdos produzidos organizados por canal
-│   ├── instagram/
-│   ├── tiktok/
-│   └── youtube/
-├── estrategia/        # Documentos de estratégia, calendários, planos
-└── cases/             # Cases reais da Tulele documentados
+├── CLAUDE.md                        # Este arquivo — contexto e regras do projeto
+├── STATE.md                         # Estado atual — atualizado a cada sessão
+│
+├── agents/                          # Prompts dos agentes de IA
+│   ├── agent1_iris.md               # Radar de Tendências e Editor de Pauta
+│   ├── agent2_nova.md               # Editor de Conteúdo e Roteirista
+│   ├── agent3_saga.md               # Programação Editorial (roda após Vero)
+│   ├── agent4_clio.md               # Narrador de Casos Reais e Prova Social
+│   ├── agent5_vero.md               # Auditor Editorial e Corretor
+│   ├── agent6_mira.md               # Diretor Criativo
+│   ├── agent7_atlas.md              # Arquiteto Visual e Conteúdo Complementar
+│   └── agent8_memo.md               # Knowledge Manager (roda ao final da semana)
+│
+├── context/                         # Contexto fixo lido pelos agentes
+│   ├── brand_voice.md
+│   ├── content_strategy.md
+│   ├── editorial_rules.md
+│   ├── icp.md
+│   ├── operation_context.md
+│   └── visual_guidelines.md
+│
+├── content/                         # Outputs gerados durante a produção
+│   ├── weekly_topics.md             # Output: Íris
+│   ├── weekly_calendar.md           # Output: Saga
+│   ├── content_history.json         # Escrito por: Saga (único responsável)
+│   ├── publishing_queue.json        # Escrito por: Vero (com slug + file + review)
+│   ├── roteiros/                    # Output: Nova e Clio
+│   ├── reviews/                     # Output: Vero
+│   ├── creative_direction/          # Output: Mira
+│   └── visual_prompts/              # Output: Atlas
+│
+└── knowledge/                       # Memória de longo prazo do sistema
+    ├── case_library.json            # Casos reais — escrito por Clio
+    ├── lessons_learned.json         # Aprendizados permanentes — escrito por Memo
+    ├── content_patterns.json        # Padrões editoriais — escrito por Memo
+    ├── marketplace_insights.json    # Insights de marketplace — escrito por Memo
+    ├── opportunity_backlog.json     # Oportunidades futuras — Memo escreve, Íris lê
+    ├── performance_history.json     # Métricas de performance — escrito por Memo
+    ├── content_assets.json          # Biblioteca de ativos intelectuais — Memo escreve
+    └── weekly_knowledge_report.md  # Relatório semanal — Output: Memo
+```
+
+## Fluxo de Execução
+
+```
+INÍCIO DO CICLO
+  1. Memo     → atualiza /knowledge/ com aprendizados da semana anterior
+  2. Íris     → gera /content/weekly_topics.md
+
+PRODUÇÃO
+  3. Nova     → gera /content/roteiros/[data]-[slug].md
+  4. Clio     → gera /content/roteiros/[data]-prova-social-[slug].md
+                atualiza /knowledge/case_library.json
+
+AUDITORIA
+  5. Vero     → audita roteiros, atualiza /content/publishing_queue.json
+                gera /content/reviews/[slug]-review.md
+
+DIREÇÃO CRIATIVA
+  6. Mira     → gera /content/creative_direction/[slug].md
+  7. Atlas    → gera /content/visual_prompts/[slug].md
+
+PROGRAMAÇÃO
+  8. Saga     → lê publishing_queue.json (aprovados)
+                gera /content/weekly_calendar.md
+                atualiza /content/content_history.json
+
+FIM DO CICLO
+  9. Memo     → consolida knowledge/, gera weekly_knowledge_report.md
 ```
 
 ---

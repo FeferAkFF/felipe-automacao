@@ -24,11 +24,11 @@ resultado → aprendizado → conteúdo
 
 Antes de iniciar, leia:
 
-/contexts/brand_voice.md
+/context/brand_voice.md
 
-/contexts/operation_context.md
+/context/operation_context.md
 
-/contexts/content_strategy.md
+/context/content_strategy.md
 
 /content/content_history.json
 
@@ -470,21 +470,6 @@ Misturar:
 - ecommerce
 - IA
 - automação
-
----
-
-# REGISTRO DE MEMÓRIA
-
-Atualizar:
-
-/content/content_history.json
-
-Adicionar:
-
-- tema
-- data
-- prova_social_propria: true
-- categoria do caso
 
 ---
 
