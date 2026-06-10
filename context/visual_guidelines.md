@@ -1,56 +1,87 @@
 # VISUAL GUIDELINES — Diretrizes Visuais
 
-> Referência de identidade visual para todos os formatos do Instagram.
+> Identidade visual definitiva do projeto Felipe Automação Sellers.
 > Última atualização: 2026-06-10
-> Status: Estrutura definida. Valores marcados com ⚠️ aguardam validação de Felipe.
 
 ---
 
 # PALETA DE CORES
 
-| Papel | Descrição | Hex | Status |
-|-------|-----------|-----|--------|
-| Cor Primária | Cor principal da marca, usada em títulos e destaques | `#1A1A2E` (sugestão: azul escuro) | ⚠️ Validar |
-| Cor Secundária | Complementa a primária, usada em fundos de slides | `#16213E` (sugestão: azul médio) | ⚠️ Validar |
-| Cor de Destaque | Chama atenção, usada em números e CTAs | `#F5A623` (sugestão: laranja) | ⚠️ Validar |
-| Cor de Fundo | Fundo limpo para carrosséis e estáticos | `#FFFFFF` ou `#F8F8F8` | ⚠️ Validar |
-| Cor de Texto | Texto principal sobre fundo claro | `#1A1A1A` | ⚠️ Validar |
-| Cor de Texto Invertido | Texto sobre fundos escuros | `#FFFFFF` | ⚠️ Validar |
+| Papel | Uso | Hex |
+|-------|-----|-----|
+| Cor Primária | Títulos, destaques, elementos principais | `#2563EB` |
+| Cor Secundária | Fundos escuros, contraste, backgrounds de slides | `#1E293B` |
+| Cor de Destaque | Números, CTAs, métricas, elementos de atenção | `#F97316` |
+| Fundo Principal | Fundo padrão de carrosséis e estáticos | `#FFFFFF` |
+| Fundo Secundário | Fundo alternativo, seções de apoio | `#F8FAFC` |
+| Texto Principal | Corpo de texto sobre fundo claro | `#1E293B` |
+| Texto Invertido | Texto sobre fundos escuros ou primário | `#FFFFFF` |
 
-**Regra geral:** alto contraste entre texto e fundo. Legível sem esforço em tela de celular.
+**Regra de contraste:** nunca usar texto claro em fundo claro nem texto escuro em fundo escuro. Legibilidade em tela de celular é prioridade absoluta.
 
 ---
 
 # TIPOGRAFIA
 
-| Papel | Fonte | Características | Status |
-|-------|-------|----------------|--------|
-| Títulos | ⚠️ A definir | Negrito, grande, impactante | ⚠️ Validar |
-| Corpo | ⚠️ A definir | Regular, legível, sem serifa | ⚠️ Validar |
-| Destaque / Número | ⚠️ A definir | Extra bold, para métricas e destaques | ⚠️ Validar |
+| Papel | Fonte | Peso | Uso |
+|-------|-------|------|-----|
+| Títulos | Montserrat | Bold / ExtraBold | Headlines de slides, aberturas, números grandes |
+| Corpo | Inter | Regular / Medium | Texto explicativo, bullets, legendas |
+| Destaque numérico | Montserrat | ExtraBold | Métricas, porcentagens, resultados |
 
-**Sugestão de stacks gratuitas:**
-- Títulos: `Montserrat Bold` ou `Inter Black`
-- Corpo: `Inter Regular` ou `Nunito`
-- Destaque: `Montserrat ExtraBold`
+**Tamanhos mínimos (mobile):**
+- Título: 28pt
+- Subtítulo: 20pt
+- Corpo: 16pt
+- Caption: 14pt
+
+**Stacks gratuitas (Google Fonts):**
+- Montserrat — disponível em fonts.google.com
+- Inter — disponível em fonts.google.com
 
 ---
 
 # ESTILO VISUAL
 
+## Identidade
+
+Moderno, tecnológico, operacional e orientado a dados.
+
+Parece o trabalho de um operador real — não de uma agência, não de um coach.
+
+O visual deve reforçar a mensagem: "Isso vem de quem opera de verdade."
+
 ## Princípios
 
-- Limpo e objetivo — sem excesso de elementos
-- Legível no celular — texto nunca menor que 18pt
-- Profissional sem ser corporativo
-- Autêntico — não parece agência, parece operador real
-- Informação em primeiro lugar — estética não sacrifica clareza
+1. **Clareza acima de tudo** — se o texto não for imediatamente legível, refazer
+2. **Dados em destaque** — números, métricas e resultados sempre visualmente destacados
+3. **Operação como protagonista** — prints reais, dashboards, planilhas têm mais valor que ilustrações
+4. **Menos é mais** — espaço em branco é aliado, não desperdício
 
-## Tom Geral
+---
 
-- Sério mas acessível
-- Técnico mas não frio
-- Confiável sem ser formal demais
+# ELEMENTOS VISUAIS PRIORITÁRIOS
+
+Usar sempre que possível:
+
+- **Dashboards** — Mercado Livre, Shopee, Amazon, Upsseler
+- **Planilhas** — Google Sheets com dados reais
+- **Métricas** — números grandes em destaque com contexto
+- **Prints reais** — capturas de tela da operação (anúncios, pedidos, relatórios)
+- **Comparações** — antes/depois com dados concretos
+- **Checklists visuais** — ✓ / ✗ para guias práticos
+- **Setas e fluxos simples** — para mostrar processos
+
+---
+
+# ELEMENTOS A EVITAR
+
+- Visual de coach ou guru (fundo degradê colorido, citações motivacionais, fontes cursivas)
+- Visual de marketing digital genérico (stock photos, emojis decorativos, gradientes exagerados)
+- Excesso de efeitos (sombras pesadas, brilhos, texturas)
+- Excesso de elementos decorativos que não carregam informação
+- Clip art ou ícones genéricos de banco de imagens
+- Imagens de pessoas desconhecidas (stock photos)
 
 ---
 
@@ -59,10 +90,9 @@
 ## Ambiente
 
 - Câmera fixa no tripé
-- Parede simples como cenário (fundo neutro, sem distrações)
+- Parede simples como cenário — fundo neutro, sem distrações
 - Iluminação natural ou ring light frontal
 - Sem troca de ângulo durante o vídeo
-- Foco total no roteiro e na entrega
 
 ## Enquadramento
 
@@ -74,10 +104,16 @@
 ## Edição
 
 - Cortes nos silêncios
-- Legenda automática ativada (fonte legível, contraste alto)
+- Legenda automática ativada — fonte Inter ou similar, cor `#FFFFFF` com borda `#1E293B`
 - Sem efeitos elaborados
 - Sem transições complexas
 - Música de fundo: opcional, instrumental, baixo volume
+
+## Texto Sobreposto em Reels
+
+- Cor primária `#2563EB` ou destaque `#F97316` para números e palavras-chave
+- Fundo sólido ou semitransparente atrás do texto quando necessário
+- Máximo 5 palavras por linha de texto sobreposto
 
 ---
 
@@ -89,30 +125,47 @@
 - Mínimo de slides: 4
 - Máximo de slides: 10
 
+## Grid e Margens
+
+- Margem lateral mínima: 64px
+- Margem superior/inferior mínima: 64px
+- Espaço entre elementos: mínimo 24px
+
 ## Estrutura de Cada Slide
 
-- Fundo: cor de fundo da paleta (claro ou escuro, consistente no carrossel)
-- Máximo 3 linhas de texto por slide
-- Espaço generoso entre elementos (margem mínima 60px)
-- Número do slide opcional (ex: "2/7")
+| Elemento | Especificação |
+|----------|--------------|
+| Fundo | `#FFFFFF` (principal) ou `#F8FAFC` (alternativo) |
+| Fundo escuro | `#1E293B` para slides de destaque ou capa |
+| Máximo de linhas | 3 linhas por bloco de texto |
+| Número do slide | Opcional — Inter Regular, cor `#94A3B8` |
 
 ## Hierarquia Visual por Slide
 
-1. **Título / ponto principal** — fonte grande, negrito, cor de destaque ou primária
-2. **Subtítulo / complemento** — fonte média, regular
-3. **Elemento visual** — ícone, número grande, captura de tela ou dado
+1. **Ponto principal** — Montserrat Bold, grande, cor `#2563EB` ou `#F97316`
+2. **Subtítulo / complemento** — Inter Medium, cor `#1E293B`
+3. **Elemento de dados** — número, captura de tela, métrica ou ícone
 
 ## Slide de Capa (Slide 1)
 
-- Texto curto e impactante (até 10 palavras)
-- Visual que para o scroll: número grande, comparação ou pergunta
-- Identidade visual reconhecível (cor + fonte consistentes)
+- Fundo: `#1E293B` (escuro) ou `#2563EB` (primário)
+- Texto: `#FFFFFF`
+- Destaque: `#F97316`
+- Headline: Montserrat ExtraBold, até 10 palavras
+- Visual de gancho: número grande, comparação ou dado concreto
+- Subtítulo opcional: Inter Regular, menor
+
+## Slides Intermediários
+
+- Fundo: `#FFFFFF` ou `#F8FAFC`
+- Um ponto por slide
+- Quando houver dado relevante: destacar com Montserrat ExtraBold + cor `#F97316`
 
 ## Último Slide
 
 - CTA único e claro
-- "Salva esse carrossel" / "Segue para mais" / "Manda para outro seller"
-- Perfil ou logo opcional
+- Fundo `#2563EB`, texto `#FFFFFF`
+- Exemplos: "Salva esse carrossel", "Segue para mais", "Manda para outro seller"
 
 ---
 
@@ -124,8 +177,9 @@
 
 ## Regras
 
-- Imagem limpa, sem excesso de elementos
-- Texto principal: máximo 10 palavras, centralizado
+- Imagem limpa, hierarquia clara
+- Texto principal: Montserrat ExtraBold, máximo 10 palavras
+- Cor de fundo: `#FFFFFF`, `#F8FAFC`, `#1E293B` ou `#2563EB`
 - Alto contraste entre fundo e texto
 - Autoexplicativo sem precisar ler a legenda
 - Um único ponto focal visual
@@ -136,60 +190,65 @@
 
 ## Regras
 
-- Selecionar frame onde o rosto está expressivo
-- Ou criar thumbnail custom com texto curto sobreposto
-- Texto: máximo 5 palavras
-- Cor de destaque no texto para legibilidade
+- Selecionar frame com expressão clara ou usar thumbnail custom
+- Texto sobreposto: máximo 5 palavras, Montserrat Bold
+- Cor do texto: `#FFFFFF` ou `#F97316`
+- Fundo do texto: sólido `#1E293B` ou `#2563EB` para garantir contraste
 
 ---
 
-# CAPTURAS DE TELA
+# CAPTURAS DE TELA DA OPERAÇÃO
 
-Quando usar capturas reais da operação:
+Quando usar prints reais:
 
-- Mercado Livre, Shopee, Amazon, Upsseler, planilhas
+- Mercado Livre, Shopee, Amazon, Upsseler, Google Sheets
 - Recortar para mostrar apenas o dado relevante
-- Ocultar informações sensíveis (preços de fornecedores, dados de clientes)
-- Pode adicionar seta ou destaque para guiar o olhar
+- Ocultar informações sensíveis: preços de fornecedores, dados de clientes, CPFs
+- Adicionar seta (`#F97316`) ou destaque retangular (`#2563EB` com opacidade 20%) para guiar o olhar
+- Prints em contexto valem mais do que qualquer ilustração
 
 ---
 
-# ELEMENTOS VISUAIS PERMITIDOS
+# COMBINAÇÕES DE CORES APROVADAS
 
-- Setas simples (→ ↓)
-- Ícones minimalistas
-- Números grandes em destaque
-- Capturas de tela reais
-- Comparações lado a lado (antes / depois)
-- Checklists visuais (✓ / ✗)
-
-## Proibido
-
-- Stock photos genéricas
-- Imagens de banco com pessoas desconhecidas
-- Efeitos de brilho, sombras excessivas
-- Gradientes exagerados
-- Clip art
+| Contexto | Fundo | Texto | Destaque |
+|----------|-------|-------|---------|
+| Capa de carrossel | `#1E293B` | `#FFFFFF` | `#F97316` |
+| Slides intermediários | `#FFFFFF` | `#1E293B` | `#2563EB` |
+| Slide de CTA | `#2563EB` | `#FFFFFF` | `#F97316` |
+| Destaque de dado | `#F8FAFC` | `#1E293B` | `#F97316` |
+| Fundo alternativo escuro | `#2563EB` | `#FFFFFF` | `#F97316` |
 
 ---
 
 # REFERÊNCIAS VISUAIS
 
-> ⚠️ Adicionar quando Felipe definir perfis de referência com estética similar.
+Perfis com estética compatível (tecnológico, orientado a dados, sem guru):
 
-- Perfil 1: —
-- Perfil 2: —
-- Perfil 3: —
+- Adicionar quando Felipe identificar referências com estética similar
 
 ---
 
-# NOTAS PARA OS AGENTES
+# CHECKLIST DE APROVAÇÃO VISUAL
 
-Enquanto a identidade visual final não for validada por Felipe:
+Antes de publicar qualquer peça:
 
-1. Usar os valores sugeridos como padrão provisório
-2. Priorizar **simplicidade e legibilidade** acima de qualquer escolha estética
-3. Nunca sacrificar clareza por estética
-4. Todas as peças visuais devem ser aprovadas por Felipe antes de publicar
+[ ] Texto legível em tela de celular sem zoom
 
-Quando Felipe validar cores e fontes, atualizar este arquivo e remover os marcadores ⚠️.
+[ ] Contraste adequado entre fundo e texto
+
+[ ] Máximo 3 linhas por bloco
+
+[ ] Dados e métricas em destaque (Montserrat ExtraBold + `#F97316`)
+
+[ ] Sem elementos decorativos desnecessários
+
+[ ] Sem visual de coach ou guru
+
+[ ] Paleta respeitada (`#2563EB`, `#1E293B`, `#F97316`, `#FFFFFF`, `#F8FAFC`)
+
+[ ] Tipografia correta (Montserrat títulos, Inter corpo)
+
+[ ] CTA presente e único (quando aplicável)
+
+[ ] Aprovado por Felipe antes de publicar
