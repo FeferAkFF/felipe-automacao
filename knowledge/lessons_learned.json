@@ -1,45 +1,4 @@
 {
-  "lessons": [
-    {
-      "id": "L001",
-      "data": "2026-06-10",
-      "ciclo": "ciclo-01",
-      "categoria": "auditoria_editorial",
-      "licao": "IA que promete acessar dados em tempo real de plataformas (ML Trends, Shopee dashboard) sem qualificação adequada é o erro de credibilidade mais frequente em roteiros de educação. Sempre distinguir 'IA calcula/estrutura' de 'você verifica na plataforma'.",
-      "origem": "Vero rejeitou versão original do slide 3 do roteiro pesquisa-produtos-ia. Score caiu por imprecisão técnica.",
-      "impacto": "Alto — erro de credibilidade que afeta posicionamento de autoridade",
-      "acao_preventiva": "Nova deve incluir qualificação explícita das capacidades da IA em todos os roteiros educativos sobre o tema"
-    },
-    {
-      "id": "L002",
-      "data": "2026-06-10",
-      "ciclo": "ciclo-01",
-      "categoria": "prova_social",
-      "licao": "Roteiros de Prova Social sem dado real da operação Tulele perdem credibilidade e pontuação. O diferencial do Felipe é a operação real — conteúdo sem âncora na Tulele se torna genérico.",
-      "origem": "Roteiro atendimento-automatico-ml-shopee aprovado com ajustes (51/70) por falta de dado real da Tulele.",
-      "impacto": "Médio — afeta diferenciação do conteúdo",
-      "acao_preventiva": "Clio deve sempre incluir dado real da Tulele em roteiros de Prova Social. Nova deve perguntar a Felipe por dados antes de finalizar educativos sobre operação"
-    },
-    {
-      "id": "L003",
-      "data": "2026-06-10",
-      "ciclo": "ciclo-01",
-      "categoria": "arquitetura_sistema",
-      "licao": "O fluxo Saga ← publishing_queue.json é crítico. Antes da correção da arquitetura v1.0, Saga lia todos os roteiros diretamente, ignorando a auditoria da Vero. A regra 'Saga só programa o que Vero aprovou' deve ser inviolável.",
-      "origem": "Auditoria de arquitetura v1.0 identificou como problema P1 (crítico).",
-      "impacto": "Crítico — sem essa regra, conteúdo não auditado vai ao ar",
-      "acao_preventiva": "Já implementado na v1.0. Verificar em cada ciclo se publishing_queue.json está atualizado antes de Saga rodar"
-    },
-    {
-      "id": "L004",
-      "data": "2026-06-10",
-      "ciclo": "ciclo-01",
-      "categoria": "conteudo",
-      "licao": "Conteúdo sobre limites de plataformas (número máximo de respostas automáticas, regras de publicação) precisa ser verificado diretamente no painel antes de publicar. Plataformas atualizam regras sem aviso — dado desatualizado destrói credibilidade.",
-      "origem": "Vero sinalizou verificação obrigatória do limite de respostas automáticas do ML antes de publicar o carrossel de atendimento.",
-      "impacto": "Alto — dado errado sobre regra de plataforma = credibilidade comprometida",
-      "acao_preventiva": "Incluir verificação de dados de plataforma na lista de pendências de todo roteiro que cite limites ou regras específicas"
-    }
-  ],
-  "last_updated": "2026-06-10"
+  "lessons": [],
+  "last_updated": null
 }
