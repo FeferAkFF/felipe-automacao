@@ -2,5 +2,15 @@
   "approved": [],
   "approved_with_changes": [],
   "rejected": [],
-  "last_updated": null
+  "last_updated": null,
+  "_schema": {
+    "entry": {
+      "slug": "AAAA-MM-DD-nome-do-tema",
+      "file": "/content/roteiros/AAAA-MM-DD-nome-do-tema.md",
+      "review": "/content/reviews/AAAA-MM-DD-nome-do-tema-review.md",
+      "date_approved": "AAAA-MM-DD",
+      "format": "Reels | Carrossel | Estático",
+      "pilar": "Educação | Prova Social | Autoridade"
+    }
+  }
 }
