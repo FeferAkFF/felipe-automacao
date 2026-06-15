@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Felipe Automação — Portal de Conteúdo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --blue: #2563EB;
+  --dark: #1E293B;
+  --orange: #F97316;
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --surface2: #273548;
+  --border: #334155;
+  --text: #F1F5F9;
+  --muted: #94A3B8;
+  --green: #22C55E;
+  --yellow: #EAB308;
+  --red: #EF4444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--text);}
+.logo span{color:var(--orange);}
+.header-right{display:flex;align-items:center;gap:12px;}
+.badge-cycle{background:var(--blue);color:#fff;font-size:0.7rem;font-weight:600;padding:3px 8px;border-radius:99px;}
+
+/* NAV TABS */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:4px;}
+nav button{background:none;border:none;color:var(--muted);font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+nav button:hover{color:var(--text);}
+nav button.active{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* LAYOUT */
+.main{padding:24px;max-width:1400px;margin:0 auto;}
+.hidden{display:none!important;}
+
+/* KANBAN */
+.kanban-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:gap;}
+.kanban-header h2{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:700;}
+.kanban-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.filter-group{display:flex;gap:6px;align-items:center;}
+.filter-group label{font-size:0.78rem;color:var(--muted);}
+select,input{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Inter',sans-serif;font-size:0.82rem;padding:6px 10px;border-radius:6px;outline:none;}
+select:focus,input:focus{border-color:var(--blue);}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.btn-primary{background:var(--blue);color:#fff;}
+.btn-primary:hover{background:#1d4ed8;}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+.btn-orange{background:var(--orange);color:#fff;}
+.btn-orange:hover{background:#ea6c04;}
+.btn-sm{padding:4px 10px;font-size:0.75rem;}
+.btn-danger{background:#450a0a;color:var(--red);border:1px solid var(--red);}
+.btn-danger:hover{background:var(--red);color:#fff;}
+
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start;}
+@media(max-width:900px){.kanban{grid-template-columns:1fr;}}
+
+.column{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.column-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.column-title{font-family:'Montserrat',sans-serif;font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-yellow{background:var(--yellow);}
+.dot-blue{background:var(--blue);}
+.dot-green{background:var(--green);}
+.count-badge{background:var(--surface2);color:var(--muted);font-size:0.7rem;font-weight:600;padding:2px 7px;border-radius:99px;}
+.column-body{padding:10px;display:flex;flex-direction:column;gap:8px;min-height:80px;}
+
+/* CARDS */
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;transition:border-color .15s;}
+.card:hover{border-color:var(--blue);}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;}
+.card-title{font-size:0.85rem;font-weight:600;line-height:1.35;}
+.card-score{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:500;color:var(--muted);white-space:nowrap;}
+.card-score.high{color:var(--green);}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.tag{font-size:0.68rem;font-weight:600;padding:2px 7px;border-radius:4px;background:var(--surface);border:1px solid var(--border);}
+.tag-reels{color:#a78bfa;border-color:#4c1d95;}
+.tag-carrossel{color:#67e8f9;border-color:#164e63;}
+.tag-estatico{color:#86efac;border-color:#14532d;}
+.tag-autoridade{color:var(--orange);}
+.tag-educacao{color:var(--blue);}
+.tag-prova{color:var(--green);}
+.card-date{font-size:0.7rem;color:var(--muted);}
+.card-quadro{font-size:0.68rem;color:var(--orange);font-weight:600;margin-top:4px;}
+.card-actions{display:flex;gap:6px;margin-top:10px;}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:100%;max-width:800px;display:flex;flex-direction:column;gap:0;}
+.modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal-header h3{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;line-height:1.3;}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;padding:0 4px;flex-shrink:0;}
+.modal-close:hover{color:var(--text);}
+.modal-body{padding:20px;display:flex;flex-direction:column;gap:16px;max-height:70vh;overflow-y:auto;}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.roteiro-content{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:0.83rem;line-height:1.7;white-space:pre-wrap;font-family:'Inter',sans-serif;max-height:320px;overflow-y:auto;}
+.section-title{font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+
+/* FEEDBACK */
+.feedback-area{display:flex;flex-direction:column;gap:8px;}
+.feedback-area textarea{background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:0.83rem;padding:10px;resize:vertical;min-height:80px;outline:none;}
+.feedback-area textarea:focus{border-color:var(--blue);}
+.feedback-history{display:flex;flex-direction:column;gap:8px;}
+.feedback-item{background:var(--bg);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:8px 12px;font-size:0.78rem;line-height:1.5;}
+.feedback-item .fi-date{color:var(--muted);font-size:0.7rem;margin-bottom:3px;}
+
+/* FORM */
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:0.78rem;font-weight:600;color:var(--muted);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+textarea.tall{min-height:200px;}
+
+/* AGENTS TAB */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s;}
+.agent-card:hover{border-color:var(--blue);}
+.agent-header{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;}
+.agent-num{width:32px;height:32px;border-radius:8px;background:var(--blue);color:#fff;font-family:'Montserrat',sans-serif;font-size:0.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.agent-info{flex:1;}
+.agent-name{font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:700;}
+.agent-role{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+.agent-body{padding:14px 16px;display:none;}
+.agent-body.open{display:block;}
+.agent-desc{font-size:0.82rem;line-height:1.6;color:var(--muted);margin-bottom:12px;}
+.prompt-box{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;font-size:0.75rem;line-height:1.6;font-family:'JetBrains Mono',monospace;color:var(--text);max-height:300px;overflow-y:auto;white-space:pre-wrap;}
+.copy-btn{margin-top:8px;}
+
+/* QUADROS TAB */
+.quadros-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.quadro-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.quadro-card h3{font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+.quadro-card p{font-size:0.8rem;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.quadro-episodes{display:flex;flex-direction:column;gap:4px;}
+.ep-item{display:flex;align-items:center;gap:8px;font-size:0.78rem;padding:6px 8px;border-radius:6px;background:var(--surface2);}
+.ep-num{color:var(--orange);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:0.72rem;min-width:28px;}
+.ep-title{flex:1;}
+.ep-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 24px;color:var(--muted);}
+.empty-state .icon{font-size:2.5rem;margin-bottom:12px;}
+.empty-state p{font-size:0.85rem;line-height:1.6;}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:500;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:0.82rem;animation:slideIn .2s ease;display:flex;align-items:center;gap:8px;}
+.toast.success{border-color:var(--green);color:var(--green);}
+.toast.error{border-color:var(--red);color:var(--red);}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+
+/* AI LOADER */
+.ai-loading{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--muted);}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.divider{height:1px;background:var(--border);margin:4px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Felipe<span>.</span>Automação <span style="color:var(--muted);font-weight:400;font-size:0.75rem;margin-left:6px;">Portal de Conteúdo</span></div>
+  <div class="header-right">
+    <span class="badge-cycle" id="cycleBadge">Ciclo 02</span>
+    <button class="btn btn-ghost btn-sm" onclick="openNewRoteiro()">+ Novo Roteiro</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('roteiros',this)">📋 Roteiros</button>
+  <button onclick="showTab('quadros',this)">🎬 Quadros</button>
+  <button onclick="showTab('agentes',this)">🤖 Agentes</button>
+</nav>
+
+<!-- ===== TAB ROTEIROS ===== -->
+<div id="tab-roteiros" class="main">
+  <div class="kanban-header">
+    <h2>Biblioteca de Roteiros</h2>
+    <div class="kanban-controls">
+      <div class="filter-group">
+        <label>Formato</label>
+        <select id="filterFormato" onchange="renderKanban()">
+          <option value="">Todos</option>
+          <option>Reels</option>
+          <option>Carrossel</option>
+          <option>Estático</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Pilar</label>
+        <select id="filterPilar" onchange="renderKanban()">
+          <option value="">Todos</option>
+          <option>Autoridade</option>
+          <option>Educação</option>
+          <option>Prova Social</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Quadro</label>
+        <select id="filterQuadro" onchange="renderKanban()">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="renderKanban()">↺ Atualizar</button>
+    </div>
+  </div>
+  <div class="kanban">
+    <div class="column">
+      <div class="column-header">
+        <div class="column-title"><div class="dot dot-yellow"></div>Em Análise</div>
+        <span class="count-badge" id="count-analise">0</span>
+      </div>
+      <div class="column-body" id="col-analise"></div>
+    </div>
+    <div class="column">
+      <div class="column-header">
+        <div class="column-title"><div class="dot dot-blue"></div>Aprovado</div>
+        <span class="count-badge" id="count-aprovado">0</span>
+      </div>
+      <div class="column-body" id="col-aprovado"></div>
+    </div>
+    <div class="column">
+      <div class="column-header">
+        <div class="column-title"><div class="dot dot-green"></div>No Ar</div>
+        <span class="count-badge" id="count-noar">0</span>
+      </div>
+      <div class="column-body" id="col-noar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB QUADROS ===== -->
+<div id="tab-quadros" class="main hidden">
+  <div class="kanban-header">
+    <h2>Quadros de Conteúdo</h2>
+    <button class="btn btn-primary btn-sm" onclick="openNewQuadro()">+ Novo Quadro</button>
+  </div>
+  <div class="quadros-grid" id="quadrosGrid"></div>
+</div>
+
+<!-- ===== TAB AGENTES ===== -->
+<div id="tab-agentes" class="main hidden">
+  <div class="kanban-header">
+    <h2>Agentes Editoriais</h2>
+    <span style="font-size:0.8rem;color:var(--muted);">Pipeline completo de produção de conteúdo</span>
+  </div>
+  <div class="agents-grid" id="agentsGrid"></div>
+</div>
+
+<!-- ===== MODAL ROTEIRO ===== -->
+<div id="modalRoteiro" class="overlay hidden" onclick="closeModalIf(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Roteiro</h3>
+      <button class="modal-close" onclick="closeModal('modalRoteiro')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="meta-row" id="modalMeta"></div>
+      <div>
+        <div class="section-title">Conteúdo do Roteiro</div>
+        <div class="roteiro-content" id="modalContent"></div>
+      </div>
+      <div>
+        <div class="section-title">Sugestões de Melhoria</div>
+        <div class="feedback-area">
+          <textarea id="feedbackInput" placeholder="Descreva o que mudaria ou melhoraria neste roteiro..."></textarea>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-orange btn-sm" onclick="saveFeedback()">Salvar feedback</button>
+            <button class="btn btn-ghost btn-sm" onclick="generateImprovedVersion()">✨ Gerar versão melhorada</button>
+            <div id="aiLoader" class="ai-loading hidden"><div class="spinner"></div> Gerando...</div>
+          </div>
+        </div>
+        <div id="feedbackHistory" class="feedback-history" style="margin-top:10px;"></div>
+      </div>
+      <div id="improvedSection" class="hidden">
+        <div class="section-title">Versão Melhorada (IA)</div>
+        <div class="roteiro-content" id="improvedContent"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" id="btnAnalise" onclick="moveCard('Em Análise')">⬅ Em Análise</button>
+      <button class="btn btn-ghost btn-sm" id="btnAprovado" onclick="moveCard('Aprovado')">✓ Aprovado</button>
+      <button class="btn btn-ghost btn-sm" id="btnNoAr" onclick="moveCard('No Ar')">🚀 No Ar</button>
+      <button class="btn btn-ghost btn-sm" onclick="editRoteiro()">✏️ Editar</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteRoteiro()">🗑 Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL NOVO/EDITAR ROTEIRO ===== -->
+<div id="modalForm" class="overlay hidden" onclick="closeModalIf(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="formTitle">Novo Roteiro</h3>
+      <button class="modal-close" onclick="closeModal('modalForm')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tema / Título *</label>
+          <input id="fTema" type="text" placeholder="Ex: Como uso IA para criar anúncios"/>
+        </div>
+        <div class="form-group">
+          <label>Slug</label>
+          <input id="fSlug" type="text" placeholder="gerado automaticamente"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Formato</label>
+          <select id="fFormato">
+            <option>Reels</option>
+            <option>Carrossel</option>
+            <option>Estático</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pilar</label>
+          <select id="fPilar">
+            <option>Educação</option>
+            <option>Autoridade</option>
+            <option>Prova Social</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de Conteúdo</label>
+          <select id="fTipo">
+            <option>Prova Social</option>
+            <option>Experimento</option>
+            <option>Aprendizado</option>
+            <option>Construção Pública</option>
+            <option>Bastidor</option>
+            <option>Exploração</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quadro (série)</label>
+          <select id="fQuadro">
+            <option value="">Sem quadro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Score Vero (0–70)</label>
+          <input id="fScore" type="number" min="0" max="70" placeholder="Ex: 65"/>
+        </div>
+        <div class="form-group">
+          <label>Data de Publicação</label>
+          <input id="fData" type="date"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Conteúdo do Roteiro *</label>
+        <textarea id="fContent" class="tall" placeholder="Cole aqui o roteiro completo gerado pelos agentes..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalForm')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveRoteiro()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL NOVO QUADRO ===== -->
+<div id="modalQuadro" class="overlay hidden" onclick="closeModalIf(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Novo Quadro</h3>
+      <button class="modal-close" onclick="closeModal('modalQuadro')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nome do Quadro *</label>
+        <input id="qNome" type="text" placeholder="Ex: Automatizando minha operação com IA"/>
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="qDesc" placeholder="O que é esta série? Qual o objetivo?"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalQuadro')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveQuadro()">Criar Quadro</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ==================== DATA ====================
+const STORAGE_KEYS = {
+  roteiros: 'fa_roteiros',
+  quadros: 'fa_quadros',
+  feedback: 'fa_feedback'
+};
+
+const INITIAL_ROTEIROS = [
+  {
+    id: 'r1',
+    tema: '3 erros que encontrei no meu próprio catálogo',
+    slug: '2026-06-10-erros-catalogo-proprios',
+    formato: 'Reels',
+    pilar: 'Autoridade',
+    tipo: 'Aprendizado',
+    status: 'Aprovado',
+    score: 66,
+    data: '2026-06-16',
+    quadro: '',
+    content: `## Tema: 3 erros que encontrei no meu próprio catálogo
+
+Pilar: Autoridade
+Formato: Reels
+Tipo: Aprendizado
+Data: 2026-06-10
+
+---
+
+## Roteiro
+
+ABERTURA
+"Auditei meus próprios anúncios essa semana. Encontrei 3 erros que provavelmente estão afetando minhas vendas."
+
+DESENVOLVIMENTO
+Erro 1: Título sem palavra-chave principal
+— o título que criei fazia sentido para mim, não para quem pesquisa
+
+Erro 2: Descrição copiada do fornecedor
+— sem adaptação para o marketplace, sem foco no comprador
+
+Erro 3: Foto de fundo branco sem contexto de uso
+— produto sem referência de tamanho, sem ambiente
+
+FECHAMENTO
+"Se você tem anúncios rodando há mais de 6 meses sem revisão — vale a pena checar. Salva esse vídeo para lembrar o que olhar."
+
+---
+
+## Legenda
+
+Auditei meus anúncios essa semana e não gostei do que vi.
+
+3 erros que encontrei — e provavelmente você tem nos seus também:
+
+1. Título sem a palavra-chave que o comprador realmente digita
+2. Descrição copiada do fornecedor sem adaptação
+3. Foto sem referência de tamanho ou contexto de uso
+
+Não é crítica — é o que acontece quando você cria anúncios sozinho e rápido.
+O importante é identificar e corrigir.
+
+Comenta "AUDITORIA" que eu mando o checklist que usei.
+
+---
+
+## Hashtags
+
+#mercadolivre #seller #anuncioml #ecommerce #marketplace #vendasonline #automacaoml`
+  },
+  {
+    id: 'r2',
+    tema: 'Como uso o ChatGPT para criar imagens de produto',
+    slug: '2026-06-10-chatgpt-imagens-produto',
+    formato: 'Carrossel',
+    pilar: 'Educação',
+    tipo: 'Experimento',
+    status: 'Aprovado',
+    score: 67,
+    data: '2026-06-17',
+    quadro: '',
+    content: `## Tema: Como uso o ChatGPT para criar imagens de produto
+
+Pilar: Educação
+Formato: Carrossel
+Tipo: Experimento
+Data: 2026-06-10
+
+---
+
+## Roteiro
+
+SLIDE 1
+"Criei imagens de produto com ChatGPT. Aqui está o que funciona — e o que não funciona."
+
+SLIDE 2
+Por que testei isso
+— tirar foto de produto leva tempo
+— fundo branco parece simples mas não é
+— quis saber se IA resolve o problema
+
+SLIDE 3
+O que o ChatGPT consegue fazer
+— fundo neutro limpo
+— arte com destaque e texto
+— contexto de uso (lifestyle)
+— variações de cor do produto
+
+SLIDE 4
+O template de prompt que uso
+"Produto [descreva] sobre fundo branco, iluminação de produto, sem sombra, centralizado, alta resolução"
+
+SLIDE 5
+O que NÃO funciona
+— produto muito específico sem referência
+— texto em português (erra muito)
+— detalhes técnicos complexos
+
+SLIDE 6
+Resultado honesto
+Economizei tempo em produtos simples.
+Para produtos complexos: ainda prefiro foto real.
+
+SLIDE 7 (CTA)
+"Salva esse carrossel. Na próxima vez que precisar criar imagem de produto, testa o prompt do slide 4."
+
+---
+
+## Legenda
+
+Testei criar imagens de produto com ChatGPT.
+
+Resultado honesto: funciona para alguns casos, não resolve tudo.
+
+No carrossel mostro:
+→ O que o ChatGPT consegue fazer de verdade
+→ O template de prompt que uso
+→ Onde ele falha (isso é importante saber antes de tentar)
+
+Salva para ter o prompt quando precisar.
+
+---
+
+## Hashtags
+
+#chatgpt #imagens #produto #marketplace #seller #ia #automacao #ecommerce`
+  },
+  {
+    id: 'r3',
+    tema: 'Como crio um anúncio do zero — o processo manual que toma horas',
+    slug: '2026-06-10-processo-criacao-anuncio-manual',
+    formato: 'Reels',
+    pilar: 'Educação',
+    tipo: 'Bastidor',
+    status: 'Aprovado',
+    score: 63,
+    data: '2026-06-19',
+    quadro: '',
+    content: `## Tema: Como crio um anúncio do zero — o processo manual
+
+Pilar: Educação
+Formato: Reels
+Tipo: Bastidor
+Data: 2026-06-10
+
+---
+
+## Roteiro
+
+ABERTURA
+"Deixa eu te mostrar quanto tempo leva para criar um anúncio do zero — do zero mesmo."
+
+DESENVOLVIMENTO
+Passo 1: Pesquisar o produto (o que vende, o que os concorrentes usam)
+— 10 min
+
+Passo 2: Criar ou tirar foto
+— 15–20 min por produto
+
+Passo 3: Escrever título com palavras-chave
+— 10 min
+
+Passo 4: Escrever descrição
+— 15 min
+
+Passo 5: Preencher ficha técnica, preço, estoque
+— 10 min
+
+Total: ~1 hora por produto
+
+"Tenho ~500 anúncios que precisam ser refeitos. Você faz a conta."
+
+FECHAMENTO
+"É por isso que estou estudando automação. O processo existe, a dor é real. Segue para acompanhar o que vou construir."
+
+---
+
+## Legenda
+
+Cronometrei quanto tempo levo para criar um anúncio do zero.
+
+Spoiler: não é rápido.
+
+Pesquisa → foto → título → descrição → ficha técnica = quase 1 hora por produto.
+
+Multiplica por 500 anúncios que precisam ser refeitos.
+
+É exatamente essa dor que me fez começar a estudar automação com IA.
+
+Segue para acompanhar o que estou construindo.
+
+---
+
+## Hashtags
+
+#seller #mercadolivre #anuncio #ecommerce #automacao #ia #marketplace #operacao`
+  },
+  {
+    id: 'r4',
+    tema: 'Como usar IA para pesquisar produto antes de comprar estoque',
+    slug: '2026-06-10-pesquisa-produto-ia',
+    formato: 'Carrossel',
+    pilar: 'Educação',
+    tipo: 'Exploração',
+    status: 'Aprovado',
+    score: 64,
+    data: '2026-06-20',
+    quadro: '',
+    content: `## Tema: Como usar IA para pesquisar produto antes de comprar estoque
+
+Pilar: Educação
+Formato: Carrossel
+Tipo: Exploração
+Data: 2026-06-10
+
+---
+
+## Roteiro
+
+SLIDE 1
+"Antes de comprar estoque, uso IA para estruturar a pesquisa. Aqui está o processo."
+
+SLIDE 2
+O problema sem IA
+— pesquisa manual no ML é lenta
+— difícil comparar volume, concorrência e margem ao mesmo tempo
+— decisão fica no feeling
+
+SLIDE 3
+Como IA ajuda (o que ela faz)
+— estrutura as perguntas certas
+— organiza os dados que você coleta
+— identifica padrões nas reviews dos concorrentes
+
+SLIDE 4
+O que IA NÃO faz (importante)
+— não acessa dados reais do ML em tempo real
+— não valida o fornecedor
+— não substitui sua validação no mercado
+
+SLIDE 5
+O prompt base para pesquisa de produto
+"Vou pesquisar [produto] para vender no Mercado Livre. Me ajude a estruturar:
+1. Quais perguntas fazer sobre demanda
+2. Como avaliar a concorrência
+3. Como estimar margem com os dados que tenho"
+
+SLIDE 6
+Regra de ouro
+IA estrutura. Você valida.
+A decisão final é sempre sua — com dados reais.
+
+SLIDE 7 (CTA)
+"Salva esse carrossel para usar antes da próxima compra de estoque."
+
+---
+
+## Legenda
+
+Antes de comprar estoque, uso IA para não depender só do feeling.
+
+Não é magia: a IA não acessa dados do ML em tempo real.
+
+O que ela faz é estruturar a pesquisa — as perguntas certas, a análise de concorrência, a estimativa de margem.
+
+Você coleta os dados. Ela organiza. Você decide.
+
+Salva para usar na próxima compra.
+
+---
+
+## Hashtags
+
+#pesquisaproduto #mercadolivre #seller #ia #estoque #ecommerce #marketplace #decisao`
+  },
+  {
+    id: 'r5',
+    tema: 'O que dá pra automatizar numa operação solo de marketplace',
+    slug: '2026-06-10-o-que-automatizar-operacao-solo',
+    formato: 'Carrossel',
+    pilar: 'Educação',
+    tipo: 'Exploração',
+    status: 'Aprovado',
+    score: 61,
+    data: '2026-06-21',
+    quadro: '',
+    content: `## Tema: O que dá pra automatizar numa operação solo de marketplace
+
+Pilar: Educação
+Formato: Carrossel
+Tipo: Exploração
+Data: 2026-06-10
+
+---
+
+## Roteiro
+
+SLIDE 1
+"O que dá pra automatizar numa operação de marketplace solo? Aqui está o que estou mapeando."
+
+SLIDE 2
+O que toma mais tempo numa operação solo
+— criação e atualização de anúncios
+— resposta a perguntas de clientes
+— controle de estoque e reposição
+— gestão financeira básica
+— pesquisa de produtos novos
+
+SLIDE 3
+O que JÁ dá pra automatizar hoje
+— criação de títulos e descrições (IA)
+— criação de imagens de produto (IA)
+— resposta automática a perguntas padrão
+— alertas de estoque baixo
+
+SLIDE 4
+O que ainda está sendo mapeado
+— geração de anúncios em lote
+— atualização de preços baseada em concorrência
+— relatório de performance automático
+
+Essas são as tarefas que estou mapeando agora.
+
+SLIDE 5
+Como priorizar o que automatizar primeiro
+1. O que toma mais tempo?
+2. O que mais se repete?
+3. O que tem processo claro e definido?
+
+Começa por aí.
+
+SLIDE 6 (CTA)
+"Segue para acompanhar o que estou implementando na prática. Cada passo vai virar conteúdo."
+
+---
+
+## Legenda
+
+Opero sozinho. Faço tudo: anúncio, foto, descrição, embalagem, entrega, atendimento.
+
+Comecei a mapear o que dá pra automatizar — não o que eu já automatizei, mas o que está no radar.
+
+No carrossel mostro:
+→ O que já dá pra automatizar hoje
+→ O que ainda estou mapeando
+→ Como decidir o que atacar primeiro
+
+Segue para acompanhar a construção.
+
+---
+
+## Hashtags
+
+#automacao #marketplace #seller #operacaosolo #ia #ecommerce #mercadolivre #eficiencia`
+  }
+];
+
+const INITIAL_QUADROS = [
+  {
+    id: 'q1',
+    nome: 'Automatizando minha operação com IA',
+    desc: 'Série de vlogs documentando em tempo real a jornada de automatizar uma operação solo de marketplace. Cada episódio = um passo real da construção.',
+    roteiros: []
+  }
+];
+
+const AGENTS = [
+  {
+    num: '01', name: 'Íris', role: 'Radar de Tendências e Editor-Chefe de Pauta',
+    desc: 'Descobre, avalia e prioriza pautas para o perfil. Não é agregador de notícias — age como editor experiente que identifica temas que geram autoridade, atraem sellers qualificados e têm aplicação prática.',
+    when: 'Início do ciclo editorial. Gera /content/weekly_topics.md.',
+    prompt: `# ÍRIS — AGENTE 1: RADAR DE TENDÊNCIAS E EDITOR-CHEFE DE PAUTA
+
+## PAPEL
+Você é Íris, o Editor-Chefe responsável por descobrir, avaliar e priorizar pautas para um perfil de Instagram focado em IA aplicada a ecommerce e marketplace.
+
+## OBJETIVO
+Identificar temas que:
+- gerem autoridade
+- atraiam sellers qualificados
+- reforcem o posicionamento da marca
+- tenham aplicação prática
+- possam gerar futuros clientes para automações e mentorias
+
+## CONTEXTO OBRIGATÓRIO
+Ler antes de iniciar:
+/context/brand_voice.md
+/context/operation_context.md
+/context/content_strategy.md
+/content/content_history.json
+/knowledge/opportunity_backlog.json
+
+## CRITÉRIOS DE SELEÇÃO
+Priorizar temas:
+1. Experimentos reais de Felipe (testou → documentar resultado real)
+2. Processos manuais com dor clara e aplicação prática
+3. Ferramentas com uso concreto para sellers
+4. Frameworks de automação aplicados ao e-commerce
+
+Evitar:
+- temas genéricos de marketplace sem relação com automação
+- novidades sem aplicação concreta
+- repetição de temas já cobertos (verificar content_history.json)
+
+## OUTPUT
+Gerar /content/weekly_topics.md com:
+- 5 a 7 temas rankeados por prioridade
+- Para cada tema: título, pilar sugerido, formato sugerido, justificativa
+- Identificar qual tipo de conteúdo (Exploração, Experimento, Processo)`
+  },
+  {
+    num: '02', name: 'Nova', role: 'Editor de Conteúdo e Gerador de Roteiros',
+    desc: 'Transforma temas aprovados em roteiros completos. Pensa como estrategista editorial antes de escrever como roteirista. Foco em autoridade, utilidade prática e identificação com a realidade operacional do público.',
+    when: 'Após aprovação dos temas pela Íris. Gera /content/roteiros/.',
+    prompt: `# NOVA — AGENTE 2: EDITOR DE CONTEÚDO E GERADOR DE ROTEIROS
+
+## PAPEL
+Você é Nova, Editora de Conteúdo e Roteirista especializada em Instagram para ecommerce, marketplace e automação com IA.
+
+## CONTEXTO OBRIGATÓRIO
+/context/brand_voice.md
+/context/operation_context.md
+/context/content_strategy.md
+/content/content_history.json
+
+## TIPOS DE CONTEÚDO VÁLIDOS
+
+### Tipo 1 — Exploração
+"Encontrei essa ferramenta/possibilidade para sellers. Aqui está como funciona."
+Não precisa de aplicação pessoal de Felipe. Requer pesquisa real.
+
+### Tipo 2 — Experimento
+"Testei X na minha operação. Aqui está o que aconteceu."
+Requer aplicação real. Resultado pode ser positivo ou negativo.
+
+### Tipo 3 — Processo
+"Aqui está como eu faço X hoje, de forma manual, e como pretendo automatizar."
+
+## REGRAS ABSOLUTAS
+- Nunca inventar números, resultados ou cases
+- Nunca criar conteúdo "eu fiz X" se Felipe não fez
+- Autenticidade > impressionar
+- Tom direto, técnico sem ser inacessível
+- Sem linguagem de guru ou coach
+
+## FORMATO DO OUTPUT
+Salvar em /content/roteiros/[AAAA-MM-DD]-[slug].md com:
+- Tema, Pilar, Formato, Tipo, Data
+- Roteiro completo (abertura + desenvolvimento + fechamento)
+- Legenda pronta
+- Hashtags (5–8)`
+  },
+  {
+    num: '03', name: 'Saga', role: 'Editor de Programação Editorial',
+    desc: 'Transforma roteiros aprovados em programação semanal estratégica. Cria narrativa coerente, equilibra pilares e formatos, evita repetição. Único responsável por escrever em content_history.json.',
+    when: 'Após auditoria da Vero. Gera /content/weekly_calendar.md e atualiza /content/content_history.json.',
+    prompt: `# SAGA — AGENTE 3: EDITOR DE PROGRAMAÇÃO EDITORIAL
+
+## PAPEL
+Você é Saga, Editora de Programação Editorial. Transforma roteiros aprovados em programação semanal estratégica.
+
+## RESPONSABILIDADES
+- Criar narrativa semanal coerente
+- Equilibrar pilares (Autoridade / Educação / Prova Social)
+- Equilibrar formatos (Reels / Carrossel / Estático)
+- Evitar repetição de temas
+- Maximizar construção de autoridade
+- Respeitar frequência real: 3–4 posts/semana
+
+## INPUT
+/content/publishing_queue.json (roteiros aprovados pela Vero)
+
+## LÓGICA DE PROGRAMAÇÃO
+- Segunda: conteúdo de alto impacto (Autoridade ou melhor score)
+- Não repetir mesmo formato em dias consecutivos
+- Encerrar semana com conteúdo de alto salvamento
+- Semana inaugural: priorizar credibilidade antes de ensinar
+
+## OUTPUT
+1. /content/weekly_calendar.md — calendário com justificativa por post
+2. /content/content_history.json — atualizar com novos posts (Saga é o ÚNICO agente que escreve aqui)
+
+## NOTA IMPORTANTE
+Saga NÃO gera roteiros. Apenas programa o que já foi aprovado pela Vero.`
+  },
+  {
+    num: '04', name: 'Clio', role: 'Documentador da Operação',
+    desc: 'Transforma acontecimentos reais da operação em conteúdo autêntico. Funciona como documentarista + jornalista operacional. Acionado via comando "conteúdo:" ou por entradas do operation_journal.',
+    when: 'Manual. Felipe fornece relato livre. Ou via leitura do /operation_journal/.',
+    prompt: `# CLIO — AGENTE 4: DOCUMENTADOR DA OPERAÇÃO
+
+## PAPEL
+Você é Clio, especialista em transformar acontecimentos reais da operação em conteúdo autêntico para Instagram.
+
+Você trabalha como: documentarista | jornalista operacional | estrategista de conteúdo
+
+Você transforma: operação real → insight → conteúdo
+
+## CATEGORIAS DE CONTEÚDO
+- PROVA SOCIAL: resultado mensurável existe. Estrutura: Problema → Ação → Resultado → Aprendizado
+- EXPERIMENTO: algo sendo testado. Estrutura: Hipótese → Teste → Resultado → Próximo Passo
+- APRENDIZADO: algo foi descoberto. Estrutura: Situação → Descoberta → Impacto → Aplicação
+- CONSTRUÇÃO PÚBLICA: algo em desenvolvimento. Estrutura: Estado Atual → Objetivo → O Que Está Sendo Feito → Próximos Passos
+- BASTIDOR: realidade da operação sem resultado. Estrutura: Contexto → Processo → Dificuldade → Lição
+
+## REGRAS ABSOLUTAS
+Nunca:
+- inventar números, resultados ou métricas
+- exagerar impactos
+- utilizar linguagem de guru ou coach
+- transformar resultado pequeno em algo extraordinário
+
+Se não existir resultado: gerar conteúdo baseado na jornada, não no destino.
+
+## AUDITORIA ANTI-HYPE
+Remover: "segredo", "hack", "explosão de vendas", "resultado incrível", "fórmula", "método revolucionário"
+Substituir por: descrição objetiva, contexto real, observação prática, aprendizado
+
+## OUTPUT
+Salvar em /content/roteiros/[AAAA-MM-DD]-[categoria-slug]-[slug].md
+Clio NÃO escreve em content_history.json (responsabilidade exclusiva da Saga)`
+  },
+  {
+    num: '05', name: 'Vero', role: 'Auditor Editorial e Corretor',
+    desc: 'Audita todos os roteiros antes da programação. Sistema de score (0–70pts): ≥58 APROVADO, 46–57 APROVADO COM AJUSTES, <46 REPROVADO. Única responsável por escrever em publishing_queue.json.',
+    when: 'Após Nova e Clio. Audita todos os roteiros antes de ir para Saga.',
+    prompt: `# VERO — AGENTE 5: AUDITOR EDITORIAL E CORRETOR
+
+## PAPEL
+Você é Vero, a Auditora Editorial. Audita e aprova roteiros antes da programação.
+
+## SISTEMA DE SCORE (máx 70pts)
+
+### Credibilidade (25pts)
+- Nenhum dado inventado ou exagerado (10pts)
+- Tom honesto — sem fingir expertise que não existe (8pts)
+- Resultado apresentado com contexto real (7pts)
+
+### Utilidade Prática (20pts)
+- Conteúdo acionável — seller pode aplicar (10pts)
+- Aplicação concreta para o público-alvo (6pts)
+- Nível de detalhe adequado (4pts)
+
+### Qualidade Editorial (15pts)
+- Abertura que para o scroll (5pts)
+- Desenvolvimento com estrutura clara (5pts)
+- CTA único e direto (5pts)
+
+### Alinhamento Estratégico (10pts)
+- Posicionamento de Felipe como aprendiz que documenta (5pts)
+- Potencial de construção de audiência qualificada (5pts)
+
+## VEREDICTOS
+- ≥58: APROVADO
+- 46–57: APROVADO COM AJUSTES (listar ajustes obrigatórios)
+- <46: REPROVADO (justificar, sugerir reformulação)
+
+## OUTPUT
+1. /content/reviews/[slug]-review.md — relatório de auditoria
+2. /content/publishing_queue.json — apenas roteiros aprovados (Vero é a ÚNICA que escreve aqui)`
+  },
+  {
+    num: '06', name: 'Mira', role: 'Diretor Criativo',
+    desc: 'Define a direção criativa visual de cada roteiro aprovado. Não produz os assets — define o conceito, tom visual, paleta, tipografia, referências de composição e o que o visual deve comunicar.',
+    when: 'Após aprovação da Vero. Gera /content/creative_direction/.',
+    prompt: `# MIRA — AGENTE 6: DIRETOR CRIATIVO
+
+## PAPEL
+Você é Mira, o Diretor Criativo. Define a direção visual para cada conteúdo aprovado.
+
+## IDENTIDADE VISUAL
+- Primária: #2563EB (azul)
+- Secundária: #1E293B (quase preto)
+- Destaque: #F97316 (laranja)
+- Fundo: #0F172A
+- Fonte títulos: Montserrat ExtraBold
+- Fonte corpo: Inter
+
+## PRINCÍPIOS VISUAIS
+- Clareza > decoração
+- Informação > estética
+- Legibilidade no mobile é prioridade
+- Dark mode como padrão
+- Contraste alto para acessibilidade
+
+## POR FORMATO
+
+### Reels
+- Cena de abertura que para o scroll (3s)
+- Texto em tela: máximo 5 palavras por tela
+- Proporção 9:16
+
+### Carrossel
+- Slide 1: título forte, sem enrolação
+- Slides intermediários: uma ideia por slide, máximo 3 linhas
+- Último slide: CTA único
+
+### Estático
+- 1080x1080px
+- Informação principal em 70% da tela
+- CTA discreto no rodapé
+
+## OUTPUT
+Salvar em /content/creative_direction/[slug].md com:
+- Conceito visual
+- Elementos visuais obrigatórios
+- Sugestão de thumbnails e capas
+- Tom visual (clean/técnico/bastidor/editorial)`
+  },
+  {
+    num: '07', name: 'Atlas', role: 'Arquiteto Visual e Conteúdo Complementar',
+    desc: 'Traduz a direção criativa em especificações técnicas de produção. Gera prompts prontos para Canva e ChatGPT Images. Define blueprints visuais com cores exatas, fontes, layouts e especificações de tamanho.',
+    when: 'Após Mira. Gera /content/visual_prompts/.',
+    prompt: `# ATLAS — AGENTE 7: ARQUITETO VISUAL E CONTEÚDO COMPLEMENTAR
+
+## PAPEL
+Você é Atlas, o Arquiteto Visual. Traduz direção criativa em especificações técnicas de produção.
+
+## FUNÇÃO PRINCIPAL
+Gerar dois tipos de output:
+1. Blueprint visual detalhado (especificações técnicas)
+2. Prompts prontos para Canva e ChatGPT Images
+
+## ESTRATÉGIAS DE COMPLEMENTO
+- EXPANSÃO: conteúdo complementar entrega informação nova (não repetição)
+- RECORTE: extrai o elemento mais forte do roteiro como post independente
+- VERSÃO ALTERNATIVA: mesmo tema, formato diferente para plataforma diferente
+
+## ESPECIFICAÇÕES TÉCNICAS POR FORMATO
+
+### Carrossel (1080x1080px)
+- Fundo: #0F172A
+- Títulos: Montserrat ExtraBold, branco ou #F97316
+- Corpo: Inter 400, #94A3B8
+- Destaques: blocos #1E293B com border #334155
+
+### Reels (1080x1920px)
+- Texto em tela: máximo 5 palavras, Montserrat ExtraBold
+- Fundo: #0F172A ou footage real
+- Destaque: underline ou bloco #F97316
+
+### Estático (1080x1080px)
+- Composição: informação principal ocupa 70%
+- Tipografia: Montserrat para impacto, Inter para clareza
+
+## OUTPUT
+Salvar em /content/visual_prompts/[slug].md com:
+- Blueprint visual detalhado
+- Prompt Canva
+- Prompt ChatGPT Images
+- Auditoria de complementaridade`
+  },
+  {
+    num: '08', name: 'Memo', role: 'Knowledge Manager',
+    desc: 'Consolida aprendizados da semana nos arquivos de knowledge. Roda no início (para atualizar base antes do ciclo) e no fim (para registrar o que foi produzido e aprendido). Memória de longo prazo do sistema.',
+    when: 'Início e fim do ciclo editorial. Lê todos os blocos "Para o Memo" gerados por Clio.',
+    prompt: `# MEMO — AGENTE 8: KNOWLEDGE MANAGER
+
+## PAPEL
+Você é Memo, o Knowledge Manager. Mantém e atualiza a base de conhecimento do sistema.
+
+## QUANDO RODA
+1. INÍCIO do ciclo: atualizar /knowledge/ com dados da semana anterior
+2. FIM do ciclo: consolidar o que foi produzido e aprendido
+
+## ARQUIVOS GERENCIADOS
+- /knowledge/lessons_learned.json — aprendizados permanentes
+- /knowledge/content_patterns.json — padrões editoriais que funcionaram
+- /knowledge/marketplace_insights.json — insights sobre marketplace
+- /knowledge/opportunity_backlog.json — oportunidades para ciclos futuros
+- /knowledge/performance_history.json — métricas de performance
+- /knowledge/content_assets.json — biblioteca de ativos intelectuais
+- /knowledge/weekly_knowledge_report.md — relatório semanal
+
+## FONTES DE INPUT
+1. Blocos "Para o Memo" nos roteiros de Clio (Aprendizado/Experimento/Construção)
+2. Reviews da Vero (padrões de qualidade identificados)
+3. Dados de performance fornecidos por Felipe
+
+## REGRAS
+- Nunca inventar dados
+- Só registrar o que realmente aconteceu
+- Manter formato JSON consistente para todos os arquivos
+- Weekly report deve ser legível por humano (não só por agentes)
+
+## OUTPUT PRINCIPAL
+/knowledge/weekly_knowledge_report.md com:
+- Resumo do ciclo
+- Aprendizados registrados
+- Padrões identificados
+- Oportunidades para próximo ciclo`
+  }
+];
+
+// ==================== STORAGE ====================
+function load(key, fallback) {
+  try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : fallback; } catch { return fallback; }
+}
+function save(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function getRoteiros() {
+  const stored = load(STORAGE_KEYS.roteiros, null);
+  if (!stored) {
+    save(STORAGE_KEYS.roteiros, INITIAL_ROTEIROS);
+    return INITIAL_ROTEIROS;
+  }
+  return stored;
+}
+function saveRoteiros(r) { save(STORAGE_KEYS.roteiros, r); }
+
+function getQuadros() {
+  const stored = load(STORAGE_KEYS.quadros, null);
+  if (!stored) {
+    save(STORAGE_KEYS.quadros, INITIAL_QUADROS);
+    return INITIAL_QUADROS;
+  }
+  return stored;
+}
+function saveQuadros(q) { save(STORAGE_KEYS.quadros, q); }
+
+function getFeedback() { return load(STORAGE_KEYS.feedback, {}); }
+function saveFeedbackAll(f) { save(STORAGE_KEYS.feedback, f); }
+
+// ==================== STATE ====================
+let currentRoteiro = null;
+let editingId = null;
+
+// ==================== TABS ====================
+function showTab(name, btn) {
+  document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.add('hidden'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.remove('hidden');
+  btn.classList.add('active');
+  if (name === 'roteiros') renderKanban();
+  if (name === 'quadros') renderQuadros();
+  if (name === 'agentes') renderAgents();
+}
+
+// ==================== KANBAN ====================
+function renderKanban() {
+  const roteiros = getRoteiros();
+  const fFormato = document.getElementById('filterFormato').value;
+  const fPilar = document.getElementById('filterPilar').value;
+  const fQuadro = document.getElementById('filterQuadro').value;
+
+  // Update quadro filter options
+  const quadros = getQuadros();
+  const sel = document.getElementById('filterQuadro');
+  const curVal = sel.value;
+  sel.innerHTML = '<option value="">Todos os Quadros</option>';
+  quadros.forEach(q => {
+    const opt = document.createElement('option');
+    opt.value = q.id;
+    opt.textContent = q.nome;
+    sel.appendChild(opt);
+  });
+  sel.value = curVal;
+
+  const filtered = roteiros.filter(r => {
+    if (fFormato && r.formato !== fFormato) return false;
+    if (fPilar && r.pilar !== fPilar) return false;
+    if (fQuadro && r.quadro !== fQuadro) return false;
+    return true;
+  });
+
+  const cols = { 'Em Análise': [], 'Aprovado': [], 'No Ar': [] };
+  filtered.forEach(r => {
+    const s = r.status || 'Em Análise';
+    if (cols[s]) cols[s].push(r); else cols['Em Análise'].push(r);
+  });
+
+  renderCol('col-analise', 'count-analise', cols['Em Análise']);
+  renderCol('col-aprovado', 'count-aprovado', cols['Aprovado']);
+  renderCol('col-noar', 'count-noar', cols['No Ar']);
+}
+
+function renderCol(colId, countId, items) {
+  const col = document.getElementById(colId);
+  const cnt = document.getElementById(countId);
+  cnt.textContent = items.length;
+  if (!items.length) {
+    col.innerHTML = '<div class="empty-state" style="padding:24px 12px;"><p style="font-size:0.75rem;">Nenhum roteiro aqui</p></div>';
+    return;
+  }
+  col.innerHTML = items.map(r => cardHTML(r)).join('');
+}
+
+function cardHTML(r) {
+  const scoreClass = r.score >= 60 ? 'high' : '';
+  const formatoTag = `tag-${(r.formato||'reels').toLowerCase()}`;
+  const pilarTag = r.pilar === 'Autoridade' ? 'tag-autoridade' : r.pilar === 'Educação' ? 'tag-educacao' : 'tag-prova';
+  const fb = getFeedback();
+  const hasFeedback = fb[r.id] && fb[r.id].length > 0;
+  const quadros = getQuadros();
+  const quadro = r.quadro ? quadros.find(q => q.id === r.quadro) : null;
+
+  return `<div class="card" onclick="openRoteiro('${r.id}')">
+    <div class="card-top">
+      <div class="card-title">${r.tema}</div>
+      ${r.score ? `<div class="card-score ${scoreClass}">${r.score}/70</div>` : ''}
+    </div>
+    <div class="card-tags">
+      <span class="tag ${formatoTag}">${r.formato || 'Reels'}</span>
+      <span class="tag ${pilarTag}">${r.pilar || 'Educação'}</span>
+      ${r.tipo ? `<span class="tag">${r.tipo}</span>` : ''}
+      ${hasFeedback ? `<span class="tag" style="color:var(--orange);border-color:var(--orange);">💬 feedback</span>` : ''}
+    </div>
+    ${quadro ? `<div class="card-quadro">📺 ${quadro.nome}</div>` : ''}
+    ${r.data ? `<div class="card-date">${formatDate(r.data)}</div>` : ''}
+  </div>`;
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T12:00:00');
+  return dt.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+// ==================== ROTEIRO MODAL ====================
+function openRoteiro(id) {
+  const r = getRoteiros().find(x => x.id === id);
+  if (!r) return;
+  currentRoteiro = r;
+
+  document.getElementById('modalTitle').textContent = r.tema;
+
+  const pilarTag = r.pilar === 'Autoridade' ? 'tag-autoridade' : r.pilar === 'Educação' ? 'tag-educacao' : 'tag-prova';
+  const formatoTag = `tag-${(r.formato||'reels').toLowerCase()}`;
+  document.getElementById('modalMeta').innerHTML = `
+    <span class="tag ${formatoTag}">${r.formato}</span>
+    <span class="tag ${pilarTag}">${r.pilar}</span>
+    ${r.tipo ? `<span class="tag">${r.tipo}</span>` : ''}
+    ${r.score ? `<span class="tag" style="color:var(--green);">Score: ${r.score}/70</span>` : ''}
+    ${r.data ? `<span class="tag">${formatDate(r.data)}</span>` : ''}
+    <span class="tag" style="color:var(--muted);">Status: ${r.status || 'Em Análise'}</span>
+  `;
+
+  document.getElementById('modalContent').textContent = r.content || '(sem conteúdo)';
+  document.getElementById('feedbackInput').value = '';
+  document.getElementById('improvedSection').classList.add('hidden');
+  document.getElementById('improvedContent').textContent = '';
+
+  renderFeedbackHistory(id);
+
+  // Show/hide status buttons
+  const status = r.status || 'Em Análise';
+  document.getElementById('btnAnalise').style.display = status === 'Em Análise' ? 'none' : '';
+  document.getElementById('btnAprovado').style.display = status === 'Aprovado' ? 'none' : '';
+  document.getElementById('btnNoAr').style.display = status === 'No Ar' ? 'none' : '';
+
+  document.getElementById('modalRoteiro').classList.remove('hidden');
+}
+
+function renderFeedbackHistory(id) {
+  const fb = getFeedback();
+  const items = fb[id] || [];
+  const container = document.getElementById('feedbackHistory');
+  if (!items.length) { container.innerHTML = ''; return; }
+  container.innerHTML = `<div class="section-title">Histórico de Feedback (${items.length})</div>` +
+    items.map(f => `<div class="feedback-item"><div class="fi-date">${f.date}</div>${escapeHtml(f.text)}</div>`).join('');
+}
+
+function saveFeedback() {
+  const text = document.getElementById('feedbackInput').value.trim();
+  if (!text || !currentRoteiro) return;
+  const fb = getFeedback();
+  if (!fb[currentRoteiro.id]) fb[currentRoteiro.id] = [];
+  fb[currentRoteiro.id].push({ text, date: new Date().toLocaleString('pt-BR') });
+  saveFeedbackAll(fb);
+  document.getElementById('feedbackInput').value = '';
+  renderFeedbackHistory(currentRoteiro.id);
+  toast('Feedback salvo! Os agentes aprenderão com isso.', 'success');
+}
+
+async function generateImprovedVersion() {
+  const feedback = document.getElementById('feedbackInput').value.trim();
+  if (!feedback || !currentRoteiro) {
+    toast('Escreva um feedback antes de gerar a versão melhorada.', 'error');
+    return;
+  }
+  const loader = document.getElementById('aiLoader');
+  loader.classList.remove('hidden');
+
+  const system = `Você é Nova, roteirista especializada em conteúdo para Instagram de sellers de marketplace.
+Tom: direto, honesto, técnico sem ser inacessível. Nunca use linguagem de guru ou coach.
+Nunca invente dados, métricas ou resultados.`;
+
+  const prompt = `Roteiro original:\n${currentRoteiro.content}\n\nFeedback do criador:\n${feedback}\n\nGere uma versão melhorada do roteiro aplicando o feedback. Mantenha a estrutura original mas incorpore as sugestões. Seja direto e não repita o feedback — apenas entregue o roteiro melhorado.`;
+
+  try {
+    const res = await fetch('/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, system })
+    });
+    const data = await res.json();
+    if (data.text) {
+      document.getElementById('improvedContent').textContent = data.text;
+      document.getElementById('improvedSection').classList.remove('hidden');
+      saveFeedback();
+    } else {
+      toast('Erro ao gerar versão melhorada: ' + (data.error || 'desconhecido'), 'error');
+    }
+  } catch (e) {
+    toast('Erro de conexão com a IA.', 'error');
+  }
+  loader.classList.add('hidden');
+}
+
+function moveCard(newStatus) {
+  if (!currentRoteiro) return;
+  const roteiros = getRoteiros();
+  const r = roteiros.find(x => x.id === currentRoteiro.id);
+  if (r) {
+    r.status = newStatus;
+    saveRoteiros(roteiros);
+    currentRoteiro = r;
+    toast(`Movido para "${newStatus}"`, 'success');
+    closeModal('modalRoteiro');
+    renderKanban();
+  }
+}
+
+function editRoteiro() {
+  if (!currentRoteiro) return;
+  editingId = currentRoteiro.id;
+  closeModal('modalRoteiro');
+  openFormWith(currentRoteiro);
+}
+
+function deleteRoteiro() {
+  if (!currentRoteiro) return;
+  if (!confirm(`Excluir "${currentRoteiro.tema}"?`)) return;
+  const roteiros = getRoteiros().filter(r => r.id !== currentRoteiro.id);
+  saveRoteiros(roteiros);
+  closeModal('modalRoteiro');
+  renderKanban();
+  toast('Roteiro excluído.', 'success');
+}
+
+// ==================== FORM ROTEIRO ====================
+function openNewRoteiro() {
+  editingId = null;
+  document.getElementById('formTitle').textContent = 'Novo Roteiro';
+  document.getElementById('fTema').value = '';
+  document.getElementById('fSlug').value = '';
+  document.getElementById('fFormato').value = 'Reels';
+  document.getElementById('fPilar').value = 'Educação';
+  document.getElementById('fTipo').value = 'Exploração';
+  document.getElementById('fScore').value = '';
+  document.getElementById('fData').value = '';
+  document.getElementById('fContent').value = '';
+
+  // Populate quadro select
+  populateQuadroSelect('fQuadro', '');
+  document.getElementById('modalForm').classList.remove('hidden');
+}
+
+function openFormWith(r) {
+  document.getElementById('formTitle').textContent = 'Editar Roteiro';
+  document.getElementById('fTema').value = r.tema || '';
+  document.getElementById('fSlug').value = r.slug || '';
+  document.getElementById('fFormato').value = r.formato || 'Reels';
+  document.getElementById('fPilar').value = r.pilar || 'Educação';
+  document.getElementById('fTipo').value = r.tipo || 'Exploração';
+  document.getElementById('fScore').value = r.score || '';
+  document.getElementById('fData').value = r.data || '';
+  document.getElementById('fContent').value = r.content || '';
+  populateQuadroSelect('fQuadro', r.quadro || '');
+  document.getElementById('modalForm').classList.remove('hidden');
+}
+
+function populateQuadroSelect(selId, currentVal) {
+  const sel = document.getElementById(selId);
+  const quadros = getQuadros();
+  sel.innerHTML = '<option value="">Sem quadro</option>';
+  quadros.forEach(q => {
+    const opt = document.createElement('option');
+    opt.value = q.id;
+    opt.textContent = q.nome;
+    sel.appendChild(opt);
+  });
+  sel.value = currentVal;
+}
+
+function saveRoteiro() {
+  const tema = document.getElementById('fTema').value.trim();
+  if (!tema) { toast('Título obrigatório.', 'error'); return; }
+
+  const roteiros = getRoteiros();
+  if (editingId) {
+    const r = roteiros.find(x => x.id === editingId);
+    if (r) {
+      r.tema = tema;
+      r.slug = document.getElementById('fSlug').value || slugify(tema);
+      r.formato = document.getElementById('fFormato').value;
+      r.pilar = document.getElementById('fPilar').value;
+      r.tipo = document.getElementById('fTipo').value;
+      r.score = parseInt(document.getElementById('fScore').value) || null;
+      r.data = document.getElementById('fData').value;
+      r.content = document.getElementById('fContent').value;
+      r.quadro = document.getElementById('fQuadro').value;
+    }
+  } else {
+    roteiros.push({
+      id: 'r' + Date.now(),
+      tema,
+      slug: document.getElementById('fSlug').value || slugify(tema),
+      formato: document.getElementById('fFormato').value,
+      pilar: document.getElementById('fPilar').value,
+      tipo: document.getElementById('fTipo').value,
+      status: 'Em Análise',
+      score: parseInt(document.getElementById('fScore').value) || null,
+      data: document.getElementById('fData').value,
+      content: document.getElementById('fContent').value,
+      quadro: document.getElementById('fQuadro').value
+    });
+  }
+  saveRoteiros(roteiros);
+  closeModal('modalForm');
+  renderKanban();
+  toast(editingId ? 'Roteiro atualizado.' : 'Roteiro criado!', 'success');
+}
+
+// ==================== QUADROS ====================
+function renderQuadros() {
+  const quadros = getQuadros();
+  const roteiros = getRoteiros();
+  const grid = document.getElementById('quadrosGrid');
+
+  if (!quadros.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">🎬</div><p>Nenhum quadro criado ainda.<br>Crie um para organizar séries de conteúdo.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = quadros.map(q => {
+    const roteirosDQ = roteiros.filter(r => r.quadro === q.id);
+    const episodes = roteirosDQ.map((r, i) => {
+      const statusColor = r.status === 'No Ar' ? 'var(--green)' : r.status === 'Aprovado' ? 'var(--blue)' : 'var(--yellow)';
+      return `<div class="ep-item">
+        <span class="ep-num">EP${String(i+1).padStart(2,'0')}</span>
+        <span class="ep-title">${r.tema}</span>
+        <span class="ep-status" style="background:${statusColor}"></span>
+      </div>`;
+    }).join('');
+
+    return `<div class="quadro-card">
+      <h3>📺 ${q.nome}</h3>
+      <p>${q.desc || 'Série de conteúdo'}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:0.72rem;color:var(--muted);">${roteirosDQ.length} episódio${roteirosDQ.length !== 1 ? 's' : ''}</span>
+        <button class="btn btn-ghost btn-sm" onclick="deleteQuadro('${q.id}')">Excluir</button>
+      </div>
+      <div class="quadro-episodes">${episodes || '<div style="font-size:0.75rem;color:var(--muted);padding:8px;">Nenhum roteiro vinculado ainda.<br>Edite um roteiro e selecione este quadro.</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function openNewQuadro() {
+  document.getElementById('qNome').value = '';
+  document.getElementById('qDesc').value = '';
+  document.getElementById('modalQuadro').classList.remove('hidden');
+}
+
+function saveQuadro() {
+  const nome = document.getElementById('qNome').value.trim();
+  if (!nome) { toast('Nome obrigatório.', 'error'); return; }
+  const quadros = getQuadros();
+  quadros.push({ id: 'q' + Date.now(), nome, desc: document.getElementById('qDesc').value.trim(), roteiros: [] });
+  saveQuadros(quadros);
+  closeModal('modalQuadro');
+  renderQuadros();
+  toast('Quadro criado!', 'success');
+}
+
+function deleteQuadro(id) {
+  if (!confirm('Excluir este quadro? Os roteiros não serão excluídos.')) return;
+  const quadros = getQuadros().filter(q => q.id !== id);
+  saveQuadros(quadros);
+  // Unlink roteiros
+  const roteiros = getRoteiros().map(r => r.quadro === id ? {...r, quadro: ''} : r);
+  saveRoteiros(roteiros);
+  renderQuadros();
+  toast('Quadro excluído.', 'success');
+}
+
+// ==================== AGENTS ====================
+function renderAgents() {
+  const grid = document.getElementById('agentsGrid');
+  grid.innerHTML = AGENTS.map(a => `
+    <div class="agent-card">
+      <div class="agent-header" onclick="toggleAgent(this)">
+        <div class="agent-num">${a.num}</div>
+        <div class="agent-info">
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-role">${a.role}</div>
+        </div>
+        <span style="color:var(--muted);font-size:0.8rem;">▼</span>
+      </div>
+      <div class="agent-body">
+        <div class="agent-desc">${a.desc}</div>
+        <div style="font-size:0.72rem;color:var(--orange);font-weight:600;margin-bottom:10px;">⏱ ${a.when}</div>
+        <div class="section-title">Prompt Completo</div>
+        <div class="prompt-box">${escapeHtml(a.prompt)}</div>
+        <button class="btn btn-ghost btn-sm copy-btn" onclick="copyPrompt(${AGENTS.indexOf(a)})">📋 Copiar prompt</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAgent(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('span');
+  body.classList.toggle('open');
+  arrow.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+function copyPrompt(idx) {
+  navigator.clipboard.writeText(AGENTS[idx].prompt).then(() => toast('Prompt copiado!', 'success'));
+}
+
+// ==================== MODALS ====================
+function closeModal(id) {
+  document.getElementById(id).classList.add('hidden');
+}
+function closeModalIf(e) {
+  if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+}
+
+// ==================== UTILS ====================
+function slugify(t) {
+  return t.toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').slice(0,50);
+}
+function escapeHtml(t) {
+  return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toast(msg, type = 'success') {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderKanban();
+  // Update cycle badge
+  const r = getRoteiros();
+  const noAr = r.filter(x => x.status === 'No Ar').length;
+  const aprovado = r.filter(x => x.status === 'Aprovado').length;
+  document.getElementById('cycleBadge').textContent = `${aprovado} aprovados · ${noAr} no ar`;
+});
+</script>
+</body>
+</html>
