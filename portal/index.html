@@ -172,7 +172,9 @@ textarea.tall{min-height:200px;}
 <header>
   <div class="logo">Felipe<span>.</span>Automação <span style="color:var(--muted);font-weight:400;font-size:0.75rem;margin-left:6px;">Portal de Conteúdo</span></div>
   <div class="header-right">
-    <span class="badge-cycle" id="cycleBadge">Ciclo 02</span>
+    <span style="font-size:0.68rem;color:var(--muted);" id="syncStatus"></span>
+    <button class="btn btn-ghost btn-sm" id="syncBtn" onclick="syncFromGitHub(false)">⟳ Sincronizar GitHub</button>
+    <span class="badge-cycle" id="cycleBadge">—</span>
     <button class="btn btn-ghost btn-sm" onclick="openNewRoteiro()">+ Novo Roteiro</button>
   </div>
 </header>
@@ -402,11 +404,17 @@ textarea.tall{min-height:200px;}
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
+// ==================== CONFIG ====================
+const GITHUB_REPO = 'FeferAkFF/felipe-automacao';
+const GITHUB_BRANCH = 'main';
+const ROTEIROS_PATH = 'content/roteiros';
+
 // ==================== DATA ====================
 const STORAGE_KEYS = {
   roteiros: 'fa_roteiros',
   quadros: 'fa_quadros',
-  feedback: 'fa_feedback'
+  feedback: 'fa_feedback',
+  syncMeta: 'fa_sync_meta'
 };
 
 const INITIAL_ROTEIROS = [
@@ -1569,14 +1577,135 @@ function toast(msg, type = 'success') {
   setTimeout(() => el.remove(), 3500);
 }
 
-// ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', () => {
-  renderKanban();
-  // Update cycle badge
+// ==================== GITHUB SYNC ====================
+
+function parseRoteiro(filename, rawContent) {
+  const lines = rawContent.split('\n');
+  const get = (key) => {
+    const line = lines.find(l => l.trim().startsWith(key + ':'));
+    return line ? line.replace(key + ':', '').trim() : '';
+  };
+
+  // Extract title from "## Tema: ..." or first h2
+  let tema = get('## Tema');
+  if (!tema) {
+    const h2 = lines.find(l => l.startsWith('## Tema'));
+    if (h2) tema = h2.replace('## Tema:', '').trim();
+  }
+  if (!tema) tema = filename.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' ').replace('.md', '');
+
+  const pilar = get('Pilar') || 'Educação';
+  const formato = get('Formato') || 'Reels';
+  const tipo = get('Tipo') || '';
+  const data = get('Data') || '';
+
+  // Try to find score in content
+  const scoreLine = lines.find(l => /score[_ ]?vero[:\s]+(\d+)/i.test(l) || /score[:\s]+(\d+)/i.test(l));
+  let score = null;
+  if (scoreLine) {
+    const m = scoreLine.match(/(\d+)/);
+    if (m) score = parseInt(m[1]);
+  }
+
+  const slug = filename.replace('.md', '');
+  const id = 'gh_' + slug;
+
+  return { id, tema, slug, formato, pilar, tipo, data, score, content: rawContent, _fromGitHub: true };
+}
+
+async function fetchRoteiroList() {
+  const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${ROTEIROS_PATH}?ref=${GITHUB_BRANCH}`;
+  const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+  if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+  const files = await res.json();
+  return files.filter(f => f.name.endsWith('.md') && f.name !== 'COMO-USAR.md');
+}
+
+async function fetchRoteiroContent(downloadUrl) {
+  const res = await fetch(downloadUrl);
+  if (!res.ok) throw new Error('Failed to fetch file');
+  return res.text();
+}
+
+async function syncFromGitHub(silent = false) {
+  const btn = document.getElementById('syncBtn');
+  if (btn) { btn.textContent = '⟳ Sincronizando...'; btn.disabled = true; }
+
+  try {
+    const files = await fetchRoteiroList();
+    const storedRoteiros = getRoteiros();
+    const feedback = getFeedback();
+
+    // Build index of existing roteiros by slug for status/quadro preservation
+    const statusMap = {};
+    const quadroMap = {};
+    storedRoteiros.forEach(r => {
+      statusMap[r.slug] = r.status;
+      quadroMap[r.slug] = r.quadro;
+    });
+
+    // Fetch all files in parallel
+    const fetched = await Promise.all(
+      files.map(async f => {
+        try {
+          const content = await fetchRoteiroContent(f.download_url);
+          const r = parseRoteiro(f.name, content);
+          // Preserve status and quadro from local storage
+          r.status = statusMap[r.slug] || 'Em Análise';
+          r.quadro = quadroMap[r.slug] || '';
+          return r;
+        } catch { return null; }
+      })
+    );
+
+    const valid = fetched.filter(Boolean);
+    if (!valid.length) {
+      if (!silent) toast('Nenhum roteiro encontrado no repositório.', 'error');
+      return;
+    }
+
+    // Merge: GitHub files + any manually added roteiros (id not starting with gh_)
+    const manual = storedRoteiros.filter(r => !r._fromGitHub && !r.id.startsWith('gh_'));
+    const merged = [...valid, ...manual];
+
+    saveRoteiros(merged);
+    save(STORAGE_KEYS.syncMeta, { lastSync: new Date().toISOString(), count: valid.length });
+
+    renderKanban();
+    updateBadge();
+    if (!silent) toast(`${valid.length} roteiros sincronizados do GitHub.`, 'success');
+    updateSyncStatus();
+  } catch (e) {
+    if (!silent) toast('Erro ao sincronizar: ' + e.message, 'error');
+  } finally {
+    if (btn) { btn.textContent = '⟳ Sincronizar GitHub'; btn.disabled = false; }
+  }
+}
+
+function updateSyncStatus() {
+  const meta = load(STORAGE_KEYS.syncMeta, null);
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  if (meta && meta.lastSync) {
+    const d = new Date(meta.lastSync);
+    el.textContent = `Última sync: ${d.toLocaleString('pt-BR')} · ${meta.count} roteiros`;
+  }
+}
+
+function updateBadge() {
   const r = getRoteiros();
   const noAr = r.filter(x => x.status === 'No Ar').length;
   const aprovado = r.filter(x => x.status === 'Aprovado').length;
   document.getElementById('cycleBadge').textContent = `${aprovado} aprovados · ${noAr} no ar`;
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', async () => {
+  updateBadge();
+  updateSyncStatus();
+  renderKanban();
+  // Auto-sync from GitHub on load (silent — doesn't show error if offline)
+  try { await syncFromGitHub(true); } catch {}
 });
 </script>
 </body>
