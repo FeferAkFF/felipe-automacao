@@ -442,9 +442,11 @@ Exemplos:
 
 ## Se CARROSSEL
 
+Antes de gerar, ler obrigatoriamente: /context/carousel_system.md
+
 ### Slide 1
 
-Título forte.
+Título forte. Tipo Visual = Capa.
 
 ---
 
@@ -456,7 +458,33 @@ Uma ideia por slide. Máximo 3 linhas.
 
 ### Último Slide
 
-CTA único.
+CTA único. Tipo Visual = CTA.
+
+---
+
+### Metadados Visuais — obrigatório em cada slide
+
+Após o conteúdo de cada slide, adicionar o bloco completo:
+
+```
+**Tipo Visual:** [Capa | Checklist | Framework | Processo | Caso Real | Comparação | Erro Comum | CTA]
+**Objetivo:** [uma frase]
+**Hierarquia Visual:**
+1. [elemento principal]
+2. [elemento secundário]
+3. [elemento de apoio]
+**Elementos Visuais:** [números | cards | ícones | métricas | setas | checklist | diagramas | comparações | código]
+**Nível de Destaque:** [Baixo | Médio | Alto]
+**Emoção:** [Curiosidade | Clareza | Descoberta | Autoridade | Prova]
+**Observações Visuais:** [instruções específicas — opcional]
+
+**Asset Visual Principal:** [Dashboard | Screenshot | Produto | Mockup SaaS | Fluxograma | Timeline | Checklist Visual | Comparação | Infográfico | Diagrama | Interface | Métrica | Card de Destaque]
+**Descrição do Asset:** [descrever exatamente o que aparece — contextualizado para marketplace/e-commerce/automação]
+**Papel do Asset:** [Explicar | Reforçar | Comparar | Demonstrar | Provar | Guiar]
+**Prioridade Visual:** [Asset dominante | Texto dominante | Equilibrado]
+```
+
+Regras: não alterar conteúdo principal. Não inventar dados. Variar asset entre slides consecutivos. Contextualizar para ML/Shopee/Amazon/automação.
 
 ---
 
