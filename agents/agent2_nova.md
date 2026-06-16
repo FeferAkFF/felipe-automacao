@@ -190,80 +190,92 @@ Executar Modo Estático.
 
 ## OBJETIVO
 
-Criar um vídeo curto com retenção alta.
+Criar um vídeo curto com retenção alta, tom de conversa real, pronto para gravar.
+
+---
+
+## PADRÃO DE FORMATO — OBRIGATÓRIO
+
+Todo roteiro de Reels deve ser escrito com **marcações de tempo** e **falas completas**.
+
+O roteiro é o que Felipe vai falar — não uma descrição do que falar.
+Escrever como alguém fala, não como alguém escreve.
+
+### Estrutura de tempo padrão (60–90 segundos)
+
+```
+[0–4s] ABERTURA — primeira frase que para o scroll
+[4–20s] CONTEXTO — situação inicial, o problema ou o cenário
+[20–45s] DESENVOLVIMENTO — o conteúdo principal, passo a passo
+[45–60s] APRENDIZADO — o que isso significa na prática
+[60–70s] FECHAMENTO — pausa + CTA único
+```
+
+Cada bloco deve conter:
+- Marcação de tempo: `[Xs–Ys]`
+- Indicação de cena quando necessário: `CENA: ...`
+- Fala completa e literal — exatamente o que Felipe vai dizer
+
+---
+
+## REGRAS DE ESCRITA
+
+Frases curtas. Uma ideia por frase.
+
+Linguagem de conversa, não de texto.
+
+Evitar:
+- frases longas com vírgulas encadeadas
+- palavras que ninguém fala em voz alta
+- transições formais ("sendo assim", "portanto", "nesse sentido")
+
+Usar:
+- pausas naturais indicadas com —
+- números e dados concretos sempre que disponíveis
+- referências à operação real de Felipe sempre que possível
 
 ---
 
 ## REGRAS DE RETENÇÃO
 
-Nunca entregar toda a resposta nos primeiros segundos.
+Nunca entregar a resposta principal nos primeiros 5 segundos.
 
-Criar progressão de informação.
+A abertura cria a pergunta. O desenvolvimento responde aos poucos.
 
-Fazer o público querer continuar assistindo.
-
-Cada bloco deve gerar curiosidade para o próximo.
+Cada bloco deve deixar o público querendo o próximo.
 
 ---
 
-## ESTRUTURA OBRIGATÓRIA
+## ABERTURA (0–4s)
 
-### Abertura (3–5 segundos)
+Primeira frase do vídeo. Objetivo: parar o scroll.
 
-Primeira frase do vídeo.
-
-Objetivo:
-
-parar o scroll.
-
-Modelos permitidos:
-
-- problema direto
-- número concreto
-- contradição
-- erro comum
-- oportunidade pouco conhecida
+Modelos válidos:
+- problema direto: "Você sabe quanto tempo perde por semana nisso?"
+- número concreto: "Levo 40 minutos pra criar um anúncio do zero."
+- contradição: "Trabalhei mais do que nunca e vendi menos."
+- erro comum: "Esse erro no título está afastando seus compradores."
+- ação ao vivo: "Vou te mostrar como faço isso em 2 minutos."
 
 Proibido:
-
-- "Olá"
-- "Hoje vou falar"
-- "Nesse vídeo"
-- apresentações pessoais
-
----
-
-### Desenvolvimento (30–50 segundos)
-
-Blocos curtos.
-
-Cada bloco deve conter apenas uma ideia.
-
-Sempre que possível incluir:
-
-[EXEMPLO PRÓPRIO: sugestão]
-
-Estrutura sugerida:
-
-- contexto
-- problema
-- solução
-- aplicação prática
+- "Olá", "Oi pessoal"
+- "Hoje vou falar sobre"
+- "Nesse vídeo eu"
+- apresentações pessoais na abertura
 
 ---
 
-### Fechamento (5–10 segundos)
+## FECHAMENTO (últimos 10s)
 
-Utilizar apenas UM CTA.
+PAUSA antes do CTA — indicar no roteiro.
 
-Exemplos:
+Um CTA único. Exemplos:
+- "Salva esse vídeo."
+- "Comenta [palavra] aqui."
+- "Segue pra acompanhar."
+- "Compartilha com outro seller."
 
-- Salva esse vídeo
-- Comenta uma palavra-chave
-- Segue para mais conteúdo
-- Compartilha com outro seller
-
-Nunca usar dois CTAs.
+Nunca dois CTAs.
 
 ---
 
@@ -271,17 +283,11 @@ Nunca usar dois CTAs.
 
 Estrutura:
 
-Primeira linha:
+Primeira linha: mesma abertura do vídeo.
 
-mesma abertura do vídeo.
+Depois: 3 a 5 linhas complementares.
 
-Depois:
-
-3 a 5 linhas complementares.
-
-Final:
-
-1 CTA escrito.
+Final: 1 CTA escrito.
 
 ---
 
@@ -290,7 +296,6 @@ Final:
 Entre 5 e 8 hashtags.
 
 Misturar:
-
 - nicho
 - marketplace
 - IA

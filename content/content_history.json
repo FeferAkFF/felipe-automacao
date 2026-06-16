@@ -54,6 +54,61 @@
       "status": "programado",
       "prova_social_propria": false,
       "score_vero": 61
+    },
+    {
+      "tema": "Quanto tempo sua operação te toma por semana?",
+      "slug": "2026-06-16-tempo-operacao-semanal",
+      "file": "/content/roteiros/2026-06-16-tempo-operacao-semanal.md",
+      "data_programacao": "2026-06-23",
+      "formato": "Reels",
+      "pilar": "Autoridade",
+      "prova_social_propria": true,
+      "status": "em-analise",
+      "score_vero": null
+    },
+    {
+      "tema": "Como escrevo um título de anúncio com IA em 2 minutos",
+      "slug": "2026-06-16-titulo-anuncio-ia-ao-vivo",
+      "file": "/content/roteiros/2026-06-16-titulo-anuncio-ia-ao-vivo.md",
+      "data_programacao": "2026-06-24",
+      "formato": "Reels",
+      "pilar": "Educação",
+      "prova_social_propria": true,
+      "status": "em-analise",
+      "score_vero": null
+    },
+    {
+      "tema": "Testei criar uma descrição de produto com IA — antes e depois",
+      "slug": "2026-06-16-descricao-produto-ia-antes-depois",
+      "file": "/content/roteiros/2026-06-16-descricao-produto-ia-antes-depois.md",
+      "data_programacao": "2026-06-26",
+      "formato": "Reels",
+      "pilar": "Educação",
+      "prova_social_propria": true,
+      "status": "em-analise",
+      "score_vero": null
+    },
+    {
+      "tema": "Por que refazer 500 anúncios do zero — e por onde comecei",
+      "slug": "2026-06-16-500-anuncios-por-onde-comecar",
+      "file": "/content/roteiros/2026-06-16-500-anuncios-por-onde-comecar.md",
+      "data_programacao": "2026-06-28",
+      "formato": "Reels",
+      "pilar": "Autoridade",
+      "prova_social_propria": true,
+      "status": "em-analise",
+      "score_vero": null
+    },
+    {
+      "tema": "5 prompts prontos para sellers que usam ChatGPT",
+      "slug": "2026-06-16-5-prompts-prontos-sellers",
+      "file": "/content/roteiros/2026-06-16-5-prompts-prontos-sellers.md",
+      "data_programacao": "2026-06-27",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "prova_social_propria": false,
+      "status": "em-analise",
+      "score_vero": null
     }
   ],
   "themes_used": [
@@ -61,7 +116,12 @@
     "chatgpt-imagens-produto",
     "processo-criacao-anuncio-manual",
     "pesquisa-produto-ia",
-    "automacao-operacao-solo"
+    "automacao-operacao-solo",
+    "tempo-operacao-semanal",
+    "titulo-anuncio-ia-ao-vivo",
+    "descricao-produto-ia-antes-depois",
+    "500-anuncios-por-onde-comecar",
+    "5-prompts-prontos-sellers"
   ],
-  "last_updated": "2026-06-10"
+  "last_updated": "2026-06-16"
 }
