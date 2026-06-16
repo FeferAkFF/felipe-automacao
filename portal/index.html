@@ -1299,11 +1299,13 @@ function renderCarousels() {
 
 function parseVisualMeta(body) {
   const get = (key) => {
-    const m = body.match(new RegExp(`\\*{0,2}${key}\\*{0,2}:?\\s*([^\\n]+)`, 'i'));
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = body.match(new RegExp(`\\*{0,2}${escaped}\\*{0,2}:?\\s*([^\\n]+)`, 'i'));
     return m ? m[1].trim() : null;
   };
   const getBlock = (key) => {
-    const m = body.match(new RegExp(`\\*{0,2}${key}\\*{0,2}:?\\s*\\n([\\s\\S]*?)(?=\\n\\*{0,2}[A-Z]|$)`, 'i'));
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = body.match(new RegExp(`\\*{0,2}${escaped}\\*{0,2}:?\\s*\\n([\\s\\S]*?)(?=\\n\\*{0,2}[A-ZÁÉÍÓÚ]|$)`, 'i'));
     return m ? m[1].trim() : null;
   };
   return {
@@ -1313,7 +1315,11 @@ function parseVisualMeta(body) {
     elementos: get('Elementos Visuais'),
     destaque: get('Nível de Destaque'),
     emocao: get('Emoção'),
-    observacoes: get('Observações Visuais')
+    observacoes: get('Observações Visuais'),
+    asset: get('Asset Visual Principal'),
+    assetDesc: get('Descrição do Asset'),
+    assetPapel: get('Papel do Asset'),
+    assetPrioridade: get('Prioridade Visual')
   };
 }
 
@@ -1400,25 +1406,42 @@ TITLE (Montserrat ExtraBold, white): "${firstLine}"
 BODY (Inter, #94A3B8): "${bodyLines.slice(0,3).join(' / ')}"`;
   }
 
+  // Asset section
+  const assetType = meta.asset || null;
+  const assetDesc = meta.assetDesc || null;
+  const assetPapel = meta.assetPapel || 'Explicar';
+  const assetPrioridade = meta.assetPrioridade || 'Equilibrado';
+
+  const assetInstructions = assetType ? `
+MAIN GRAPHIC ASSET:
+- Type: ${assetType}
+- Description: ${assetDesc || `${assetType} related to marketplace/e-commerce operations in Brazil`}
+- Role: ${assetPapel} the content
+- Visual Priority: ${assetPrioridade}
+- The asset must be rendered as a UI/graphic element, NOT a photograph
+- Style: flat design, dark mode, consistent with Vercel/Linear aesthetic
+- Colors: use #1E293B for backgrounds, #2563EB for primary elements, #F97316 for highlights` : '';
+
   return `Create a 1080x1080px Instagram carousel slide — slide ${slide.num} of ${totalSlides}.
 
-CONTEXT: Brazilian e-commerce/marketplace content creator. Dark mode, premium, technical.
+CONTEXT: Brazilian e-commerce/marketplace content creator (sells toys and home goods on Mercado Livre, Shopee, Amazon). Uses AI and automation tools. Dark mode, premium, technical style.
 
 VISUAL IDENTITY:
-- Background: #0F172A
-- Cards: #1E293B
+- Background: #0F172A (very dark navy)
+- Cards/surfaces: #1E293B
 - Primary blue: #2563EB
 - Highlight orange: #F97316
 - Text: #F1F5F9
 - Secondary text: #94A3B8
 - Title font: Montserrat ExtraBold
 - Body font: Inter
-- Style reference: Vercel, Stripe, Linear — minimal, clean, technical
+- Style reference: Vercel, Stripe, Linear, Notion — minimal, clean, high-contrast, technical
+${assetInstructions}
 
 SLIDE TYPE: ${tipoVisual}
 EMPHASIS LEVEL: ${destaque}
 EMOTION: ${emocao}
-VISUAL ELEMENTS TO USE: ${elementos}
+VISUAL ELEMENTS: ${elementos}
 
 LAYOUT:
 ${layout}
@@ -1428,7 +1451,13 @@ ${textOverlay}
 ${meta.hierarquia ? `\nVISUAL HIERARCHY:\n${meta.hierarquia}` : ''}
 ${observacoes ? `\nSPECIAL INSTRUCTIONS: ${observacoes}` : ''}
 
-RULES: No people, no faces, no stock photos, no emojis, no motivational marketing aesthetic. Pure typography, geometric elements, and data visualization only. High contrast, mobile-legible.`;
+ABSOLUTE RULES:
+- No people, no faces, no stock photos
+- No emojis, no motivational marketing aesthetic
+- No gradients unless very subtle
+- All graphics must be UI elements, diagrams, or data visualizations — never photography
+- High contrast, legible on mobile (375px min width)
+- Every element must have a clear purpose`;
 }
 
 function slideCardHTML(roteiroId, slide, totalSlides) {

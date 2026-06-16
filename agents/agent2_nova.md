@@ -378,7 +378,7 @@ Entre 5 e 8 hashtags.
 
 ## METADADOS VISUAIS — OBRIGATÓRIO EM CADA SLIDE
 
-Após o conteúdo de cada slide, adicionar:
+Após o conteúdo de cada slide, adicionar o bloco completo abaixo:
 
 ```
 **Tipo Visual:** [Capa | Checklist | Framework | Processo | Caso Real | Comparação | Erro Comum | CTA]
@@ -391,13 +391,19 @@ Após o conteúdo de cada slide, adicionar:
 **Nível de Destaque:** [Baixo | Médio | Alto]
 **Emoção:** [Curiosidade | Clareza | Descoberta | Autoridade | Prova]
 **Observações Visuais:** [instruções específicas — opcional]
+
+**Asset Visual Principal:** [Dashboard | Screenshot | Produto | Mockup SaaS | Fluxograma | Timeline | Checklist Visual | Comparação | Infográfico | Diagrama | Interface | Métrica | Card de Destaque]
+**Descrição do Asset:** [descrever exatamente o que aparece — contextualizado para marketplace/e-commerce/automação]
+**Papel do Asset:** [Explicar | Reforçar | Comparar | Demonstrar | Provar | Guiar]
+**Prioridade Visual:** [Asset dominante | Texto dominante | Equilibrado]
 ```
 
 Regras:
-- Selecionar apenas os elementos visuais relevantes para o conteúdo do slide
-- Não inventar dados ou resultados para justificar metadados
+- Nunca usar o mesmo tipo de asset em slides consecutivos (variar obrigatoriamente)
+- Contextualizar sempre para Mercado Livre, Shopee, Amazon, ChatGPT, automação
+- Não inventar dados ou resultados
 - Não alterar o conteúdo principal do slide
-- Os metadados ficam separados do conteúdo por uma linha em branco
+- Metadados ficam separados do conteúdo por uma linha em branco
 
 Entre 5 e 8 hashtags.
 
