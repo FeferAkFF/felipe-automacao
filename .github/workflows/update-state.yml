@@ -1,0 +1,99 @@
+name: Atualizar STATE.md diariamente
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 00:00 horário de Brasília (UTC-3)
+  workflow_dispatch:       # permite rodar manualmente pelo GitHub
+
+jobs:
+  update-state:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Gerar atualização de métricas
+        run: |
+          TODAY=$(date -u -d '-3 hours' '+%Y-%m-%d')
+          NOW=$(date -u -d '-3 hours' '+%d/%m/%Y %H:%M')
+
+          # Contar roteiros por status via content_history.json
+          TOTAL_ROTEIROS=$(find content/roteiros -name "*.md" 2>/dev/null | wc -l)
+
+          # Ler posts do content_history.json
+          if [ -f content/content_history.json ]; then
+            TOTAL_POSTS=$(python3 -c "import json; d=json.load(open('content/content_history.json')); print(len(d.get('posts',[])))" 2>/dev/null || echo "0")
+            PROGRAMADOS=$(python3 -c "import json; d=json.load(open('content/content_history.json')); print(len([p for p in d.get('posts',[]) if p.get('status')=='programado']))" 2>/dev/null || echo "0")
+            PUBLICADOS=$(python3 -c "import json; d=json.load(open('content/content_history.json')); print(len([p for p in d.get('posts',[]) if p.get('status')=='publicado']))" 2>/dev/null || echo "0")
+            LAST_UPDATED=$(python3 -c "import json; d=json.load(open('content/content_history.json')); print(d.get('last_updated','—'))" 2>/dev/null || echo "—")
+          else
+            TOTAL_POSTS=0
+            PROGRAMADOS=0
+            PUBLICADOS=0
+            LAST_UPDATED="—"
+          fi
+
+          # Contar arquivos de knowledge
+          LESSONS=$(python3 -c "import json; d=json.load(open('knowledge/lessons_learned.json')); print(len(d))" 2>/dev/null || echo "0")
+          CASES=$(python3 -c "import json; d=json.load(open('knowledge/case_library.json')); print(len(d))" 2>/dev/null || echo "0")
+
+          # Último commit
+          LAST_COMMIT=$(git log -1 --format="%s" 2>/dev/null || echo "—")
+          LAST_COMMIT_DATE=$(git log -1 --format="%cd" --date=format:'%d/%m/%Y' 2>/dev/null || echo "—")
+
+          # Construir bloco de métricas atualizado
+          METRICS_BLOCK="# MÉTRICAS ATUAIS
+
+| Métrica | Valor |
+|---------|-------|
+| Roteiros gerados (total) | $TOTAL_ROTEIROS |
+| Posts programados | $PROGRAMADOS |
+| Posts publicados | $PUBLICADOS |
+| Cases documentados | $CASES |
+| Aprendizados registrados | $LESSONS |
+| Última atualização automática | $NOW (Brasília) |"
+
+          # Substituir bloco de métricas no STATE.md usando python
+          python3 << PYEOF
+import re
+
+with open('STATE.md', 'r') as f:
+    content = f.read()
+
+new_block = """$METRICS_BLOCK"""
+
+# Replace the MÉTRICAS ATUAIS section
+pattern = r'# MÉTRICAS ATUAIS\n.*?(?=\n---|\n# )'
+replacement = new_block + '\n'
+new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+# Update the last_updated line
+new_content = re.sub(
+    r'> Última atualização: .*',
+    '> Última atualização: $TODAY (auto)',
+    new_content
+)
+
+with open('STATE.md', 'w') as f:
+    f.write(new_content)
+
+print("STATE.md atualizado com sucesso.")
+PYEOF
+
+      - name: Commit se houver mudanças
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add STATE.md
+          if git diff --staged --quiet; then
+            echo "Nenhuma mudança detectada — sem commit."
+          else
+            git commit -m "chore: atualização automática de métricas no STATE.md [skip ci]"
+            git push origin main
+            echo "STATE.md atualizado e commitado."
+          fi

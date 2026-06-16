@@ -165,6 +165,37 @@ textarea.tall{min-height:200px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
 .divider{height:1px;background:var(--border);margin:4px 0;}
+
+/* CARROSSEL TAB */
+.carousel-list{display:flex;flex-direction:column;gap:16px;}
+.carousel-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.carousel-item-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;}
+.carousel-item-header h3{font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:700;flex:1;}
+.carousel-item-body{padding:16px;display:none;}
+.carousel-item-body.open{display:block;}
+.slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:16px;}
+.slide-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.slide-card-header{background:var(--surface2);padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.slide-num{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--orange);font-weight:700;}
+.slide-label{font-size:0.72rem;color:var(--muted);}
+.slide-card-body{padding:12px;font-size:0.8rem;line-height:1.6;white-space:pre-wrap;min-height:80px;}
+.slide-actions{padding:8px 12px;border-top:1px solid var(--border);display:flex;gap:6px;}
+.img-prompt-box{background:var(--surface2);border:1px solid var(--orange);border-radius:6px;padding:10px 12px;font-size:0.75rem;font-family:'JetBrains Mono',monospace;line-height:1.5;margin-top:6px;white-space:pre-wrap;}
+.carousel-actions{display:flex;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--border);}
+
+/* PRINT */
+@media print {
+  header,nav,.header-right,.kanban-controls,.modal-footer,.card-actions,
+  .btn,.toast-wrap,#tab-quadros,#tab-agentes,#tab-carrosseis,
+  .column-header button,.feedback-area,.ai-loading { display:none!important; }
+  body{background:#fff;color:#000;}
+  .print-roteiro{max-width:700px;margin:0 auto;font-family:'Inter',sans-serif;}
+  .print-roteiro h1{font-size:1.3rem;margin-bottom:8px;}
+  .print-roteiro .meta{font-size:0.8rem;color:#555;margin-bottom:16px;}
+  .print-roteiro pre{font-size:0.85rem;line-height:1.8;white-space:pre-wrap;font-family:'Inter',sans-serif;}
+}
+.print-area{display:none;}
+@media print { .print-area{display:block!important;} .main{display:none!important;} nav{display:none!important;} header{display:none!important;} }
 </style>
 </head>
 <body>
@@ -181,6 +212,7 @@ textarea.tall{min-height:200px;}
 
 <nav>
   <button class="active" onclick="showTab('roteiros',this)">📋 Roteiros</button>
+  <button onclick="showTab('carrosseis',this)">🎨 Carrosséis</button>
   <button onclick="showTab('quadros',this)">🎬 Quadros</button>
   <button onclick="showTab('agentes',this)">🤖 Agentes</button>
 </nav>
@@ -242,6 +274,17 @@ textarea.tall{min-height:200px;}
   </div>
 </div>
 
+<!-- ===== TAB CARROSSÉIS ===== -->
+<div id="tab-carrosseis" class="main hidden">
+  <div class="kanban-header">
+    <h2>Carrosséis</h2>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span style="font-size:0.78rem;color:var(--muted);">Slides prontos para copiar no Canva ou gerar imagem com IA</span>
+    </div>
+  </div>
+  <div class="carousel-list" id="carouselList"></div>
+</div>
+
 <!-- ===== TAB QUADROS ===== -->
 <div id="tab-quadros" class="main hidden">
   <div class="kanban-header">
@@ -294,11 +337,15 @@ textarea.tall{min-height:200px;}
       <button class="btn btn-ghost btn-sm" id="btnAnalise" onclick="moveCard('Em Análise')">⬅ Em Análise</button>
       <button class="btn btn-ghost btn-sm" id="btnAprovado" onclick="moveCard('Aprovado')">✓ Aprovado</button>
       <button class="btn btn-ghost btn-sm" id="btnNoAr" onclick="moveCard('No Ar')">🚀 No Ar</button>
+      <button class="btn btn-ghost btn-sm" onclick="printRoteiro()">🖨️ Imprimir</button>
       <button class="btn btn-ghost btn-sm" onclick="editRoteiro()">✏️ Editar</button>
       <button class="btn btn-danger btn-sm" onclick="deleteRoteiro()">🗑 Excluir</button>
     </div>
   </div>
 </div>
+
+<!-- área de impressão — só aparece no print -->
+<div class="print-area" id="printArea"></div>
 
 <!-- ===== MODAL NOVO/EDITAR ROTEIRO ===== -->
 <div id="modalForm" class="overlay hidden" onclick="closeModalIf(event)">
@@ -1158,6 +1205,204 @@ function saveFeedbackAll(f) { save(STORAGE_KEYS.feedback, f); }
 let currentRoteiro = null;
 let editingId = null;
 
+// ==================== PRINT ====================
+function printRoteiro() {
+  if (!currentRoteiro) return;
+  const r = currentRoteiro;
+  const area = document.getElementById('printArea');
+  area.innerHTML = `<div class="print-roteiro">
+    <h1>${escapeHtml(r.tema)}</h1>
+    <div class="meta">${r.formato} · ${r.pilar} · ${r.tipo || ''} · ${r.data ? formatDate(r.data) : ''} ${r.score ? '· Score: ' + r.score + '/70' : ''}</div>
+    <pre>${escapeHtml(r.content || '')}</pre>
+  </div>`;
+  closeModal('modalRoteiro');
+  window.print();
+}
+
+// ==================== CARROSSÉIS ====================
+function parseSlides(content) {
+  if (!content) return [];
+  const slides = [];
+  const lines = content.split('\n');
+  let current = null;
+
+  for (const line of lines) {
+    // Match slide headers: ### SLIDE N, ### Slide 1, SLIDE 1 —
+    const slideMatch = line.match(/^###?\s*SLIDE\s*(\d+)/i) ||
+                       line.match(/^---+$/) && current ? null :
+                       line.match(/^\*{0,2}SLIDE\s*(\d+)/i);
+    if (slideMatch) {
+      if (current) slides.push(current);
+      const num = parseInt(slideMatch[1]);
+      const label = line.replace(/^#{0,3}\s*/, '').replace(/\*{0,2}/g, '').trim();
+      current = { num, label, body: '' };
+      continue;
+    }
+    if (current) {
+      current.body += line + '\n';
+    }
+  }
+  if (current && current.body.trim()) slides.push(current);
+
+  // Fallback: if no slides parsed, try splitting by "---" sections after ## Roteiro
+  if (!slides.length) {
+    const roteiroMatch = content.match(/## Roteiro\s*([\s\S]*?)(?=^## |\Z)/m);
+    if (roteiroMatch) {
+      const body = roteiroMatch[1];
+      const parts = body.split(/\n---+\n/).filter(p => p.trim());
+      parts.forEach((p, i) => {
+        const firstLine = p.trim().split('\n')[0];
+        slides.push({ num: i + 1, label: firstLine.replace(/^#{0,3}\s*/, ''), body: p.trim() });
+      });
+    }
+  }
+
+  return slides;
+}
+
+function renderCarousels() {
+  const roteiros = getRoteiros();
+  const carrosseis = roteiros.filter(r => r.formato === 'Carrossel');
+  const list = document.getElementById('carouselList');
+
+  if (!carrosseis.length) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">🎨</div><p>Nenhum carrossel encontrado.<br>Roteiros com formato Carrossel aparecem aqui.</p></div>`;
+    return;
+  }
+
+  list.innerHTML = carrosseis.map(r => {
+    const slides = parseSlides(r.content);
+    const statusColor = r.status === 'No Ar' ? 'var(--green)' : r.status === 'Aprovado' ? 'var(--blue)' : 'var(--yellow)';
+    return `<div class="carousel-item">
+      <div class="carousel-item-header" onclick="toggleCarousel(this)">
+        <h3>${escapeHtml(r.tema)}</h3>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <span style="font-size:0.7rem;color:${statusColor};font-weight:600;">${r.status || 'Em Análise'}</span>
+          ${r.score ? `<span class="tag" style="color:var(--green);">${r.score}/70</span>` : ''}
+          <span style="color:var(--muted);font-size:0.8rem;">▼</span>
+        </div>
+      </div>
+      <div class="carousel-item-body">
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="copyAllSlides('${r.id}')">📋 Copiar todos os slides</button>
+          <button class="btn btn-primary btn-sm" onclick="generateAllImagePrompts('${r.id}')">✨ Gerar prompts de imagem</button>
+          <button class="btn btn-ghost btn-sm" onclick="printRoteiro_direct('${r.id}')">🖨️ Imprimir roteiro</button>
+        </div>
+        <div class="slides-grid" id="slides-${r.id}">
+          ${slides.length ? slides.map(s => slideCardHTML(r.id, s)).join('') : `<div style="color:var(--muted);font-size:0.82rem;">Slides não detectados. Veja o roteiro completo na aba Roteiros.</div>`}
+        </div>
+        <div id="img-prompts-${r.id}"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function slideCardHTML(roteiroId, slide) {
+  return `<div class="slide-card">
+    <div class="slide-card-header">
+      <span class="slide-num">SLIDE ${slide.num}</span>
+      <span class="slide-label">${escapeHtml(slide.label.replace(/SLIDE\s*\d+/i,'').trim().slice(0,30))}</span>
+    </div>
+    <div class="slide-card-body">${escapeHtml(slide.body.trim())}</div>
+    <div class="slide-actions">
+      <button class="btn btn-ghost btn-sm" onclick="copySlide('${roteiroId}',${slide.num - 1})">Copiar texto</button>
+      <button class="btn btn-ghost btn-sm" onclick="genSlideImgPrompt('${roteiroId}',${slide.num - 1})">Prompt imagem</button>
+    </div>
+    <div id="imgp-${roteiroId}-${slide.num - 1}"></div>
+  </div>`;
+}
+
+function toggleCarousel(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('span:last-child');
+  body.classList.toggle('open');
+  arrow.textContent = body.classList.contains('open') ? '▲' : '▼';
+  if (body.classList.contains('open')) {
+    const rId = body.querySelector('[id^="slides-"]')?.id?.replace('slides-','');
+    if (rId) {
+      const r = getRoteiros().find(x => x.id === rId);
+      if (r) {
+        const slides = parseSlides(r.content);
+        document.getElementById('slides-' + rId).innerHTML = slides.length
+          ? slides.map(s => slideCardHTML(rId, s)).join('')
+          : '<div style="color:var(--muted);font-size:0.82rem;">Slides não detectados.</div>';
+      }
+    }
+  }
+}
+
+function copySlide(rId, idx) {
+  const r = getRoteiros().find(x => x.id === rId);
+  if (!r) return;
+  const slides = parseSlides(r.content);
+  if (slides[idx]) {
+    navigator.clipboard.writeText(slides[idx].body.trim());
+    toast('Slide copiado!', 'success');
+  }
+}
+
+function copyAllSlides(rId) {
+  const r = getRoteiros().find(x => x.id === rId);
+  if (!r) return;
+  const slides = parseSlides(r.content);
+  const text = slides.map(s => `=== SLIDE ${s.num} ===\n${s.body.trim()}`).join('\n\n');
+  navigator.clipboard.writeText(text);
+  toast('Todos os slides copiados!', 'success');
+}
+
+async function genSlideImgPrompt(rId, idx) {
+  const r = getRoteiros().find(x => x.id === rId);
+  if (!r) return;
+  const slides = parseSlides(r.content);
+  const slide = slides[idx];
+  if (!slide) return;
+
+  const container = document.getElementById(`imgp-${rId}-${idx}`);
+  container.innerHTML = '<div class="ai-loading" style="padding:8px 12px;"><div class="spinner"></div> Gerando...</div>';
+
+  const prompt = `Você é um especialista em criação de conteúdo visual para Instagram.
+Gere um prompt de imagem (em inglês) para criar o visual deste slide de carrossel para um perfil de marketplace/e-commerce brasileiro.
+
+Slide: ${slide.label}
+Conteúdo: ${slide.body.trim()}
+
+Contexto visual: dark mode, fundo #0F172A, elementos em #1E293B e #2563EB, destaque laranja #F97316.
+Estilo: profissional, clean, técnico. Sem pessoas. Sem rosto.
+
+Retorne APENAS o prompt de imagem, sem explicação.`;
+
+  try {
+    const res = await fetch('/api/ai', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({prompt}) });
+    const data = await res.json();
+    if (data.text) {
+      container.innerHTML = `<div class="img-prompt-box">${escapeHtml(data.text.trim())}</div>
+        <div style="padding:6px 12px;"><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText(this.closest('.slide-card').querySelector('.img-prompt-box').textContent);toast('Prompt copiado!','success')">Copiar prompt</button></div>`;
+    } else {
+      container.innerHTML = `<div style="padding:8px 12px;font-size:0.75rem;color:var(--red);">Erro: ${data.error || 'sem resposta'}</div>`;
+    }
+  } catch(e) {
+    container.innerHTML = `<div style="padding:8px 12px;font-size:0.75rem;color:var(--red);">Erro de conexão.</div>`;
+  }
+}
+
+async function generateAllImagePrompts(rId) {
+  const r = getRoteiros().find(x => x.id === rId);
+  if (!r) return;
+  const slides = parseSlides(r.content);
+  toast(`Gerando ${slides.length} prompts...`, 'success');
+  for (let i = 0; i < slides.length; i++) {
+    await genSlideImgPrompt(rId, i);
+    await new Promise(res => setTimeout(res, 400));
+  }
+}
+
+function printRoteiro_direct(rId) {
+  const r = getRoteiros().find(x => x.id === rId);
+  if (!r) return;
+  currentRoteiro = r;
+  printRoteiro();
+}
+
 // ==================== TABS ====================
 function showTab(name, btn) {
   document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.add('hidden'));
@@ -1167,6 +1412,7 @@ function showTab(name, btn) {
   if (name === 'roteiros') renderKanban();
   if (name === 'quadros') renderQuadros();
   if (name === 'agentes') renderAgents();
+  if (name === 'carrosseis') renderCarousels();
 }
 
 // ==================== KANBAN ====================
