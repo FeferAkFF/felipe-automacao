@@ -1,8 +1,54 @@
 {
-  "approved": [],
+  "approved": [
+    {
+      "slug": "2026-06-10-erros-catalogo-proprios",
+      "file": "/content/roteiros/2026-06-10-erros-catalogo-proprios.md",
+      "review": "/content/reviews/2026-06-10-erros-catalogo-proprios-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Reels",
+      "pilar": "Autoridade",
+      "score": 66
+    },
+    {
+      "slug": "2026-06-10-chatgpt-imagens-produto",
+      "file": "/content/roteiros/2026-06-10-chatgpt-imagens-produto.md",
+      "review": "/content/reviews/2026-06-10-chatgpt-imagens-produto-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Carrossel",
+      "pilar": "Educação",
+      "score": 67
+    },
+    {
+      "slug": "2026-06-10-pesquisa-produto-ia",
+      "file": "/content/roteiros/2026-06-10-pesquisa-produto-ia.md",
+      "review": "/content/reviews/2026-06-10-pesquisa-produto-ia-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Carrossel",
+      "pilar": "Educação",
+      "score": 64
+    },
+    {
+      "slug": "2026-06-10-processo-criacao-anuncio-manual",
+      "file": "/content/roteiros/2026-06-10-processo-criacao-anuncio-manual.md",
+      "review": "/content/reviews/2026-06-10-processo-criacao-anuncio-manual-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Reels",
+      "pilar": "Educação",
+      "score": 63
+    },
+    {
+      "slug": "2026-06-10-o-que-automatizar-operacao-solo",
+      "file": "/content/roteiros/2026-06-10-o-que-automatizar-operacao-solo.md",
+      "review": "/content/reviews/2026-06-10-o-que-automatizar-operacao-solo-review.md",
+      "date_approved": "2026-06-10",
+      "format": "Carrossel",
+      "pilar": "Educação",
+      "score": 61
+    }
+  ],
   "approved_with_changes": [],
   "rejected": [],
-  "last_updated": null,
+  "last_updated": "2026-06-10",
   "_schema": {
     "entry": {
       "slug": "AAAA-MM-DD-nome-do-tema",

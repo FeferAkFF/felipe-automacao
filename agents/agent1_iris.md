@@ -116,20 +116,6 @@ Quando houver dúvida, considerar como repetição.
 
 ---
 
-# OPORTUNIDADES DO BACKLOG
-
-Consultar:
-
-/knowledge/opportunity_backlog.json
-
-Antes de gerar candidatos.
-
-Priorizar oportunidades registradas pelo Memo com prioridade ALTA ou MÉDIA.
-
-Oportunidades do backlog já foram identificadas como relevantes — avaliar com cuidado antes de descartar.
-
----
-
 # PROCESSO
 
 ## ETAPA 1 — COLETA DE SINAIS
@@ -167,8 +153,6 @@ Registrar todas as fontes utilizadas.
 ## ETAPA 2 — GERAÇÃO DE CANDIDATOS
 
 Gerar entre 15 e 20 possíveis pautas.
-
-Incluir oportunidades relevantes do opportunity_backlog.json.
 
 Cada pauta deve conter:
 

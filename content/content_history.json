@@ -1,5 +1,67 @@
 {
-  "posts": [],
-  "last_updated": null,
-  "themes_used": []
+  "posts": [
+    {
+      "tema": "3 erros que encontrei no meu próprio catálogo",
+      "slug": "2026-06-10-erros-catalogo-proprios",
+      "file": "/content/roteiros/2026-06-10-erros-catalogo-proprios.md",
+      "data_programacao": "2026-06-16",
+      "formato": "Reels",
+      "pilar": "Autoridade",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 66
+    },
+    {
+      "tema": "Como uso o ChatGPT para criar imagens de produto",
+      "slug": "2026-06-10-chatgpt-imagens-produto",
+      "file": "/content/roteiros/2026-06-10-chatgpt-imagens-produto.md",
+      "data_programacao": "2026-06-17",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 67
+    },
+    {
+      "tema": "Como crio um anúncio do zero — o processo manual",
+      "slug": "2026-06-10-processo-criacao-anuncio-manual",
+      "file": "/content/roteiros/2026-06-10-processo-criacao-anuncio-manual.md",
+      "data_programacao": "2026-06-19",
+      "formato": "Reels",
+      "pilar": "Educação",
+      "prova_social_propria": true,
+      "status": "programado",
+      "score_vero": 63
+    },
+    {
+      "tema": "Como usar IA para pesquisar produto antes de comprar estoque",
+      "slug": "2026-06-10-pesquisa-produto-ia",
+      "file": "/content/roteiros/2026-06-10-pesquisa-produto-ia.md",
+      "data_programacao": "2026-06-20",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "prova_social_propria": false,
+      "status": "programado",
+      "score_vero": 64
+    },
+    {
+      "tema": "O que dá pra automatizar numa operação solo de marketplace",
+      "slug": "2026-06-10-o-que-automatizar-operacao-solo",
+      "file": "/content/roteiros/2026-06-10-o-que-automatizar-operacao-solo.md",
+      "data_programacao": "2026-06-21",
+      "formato": "Carrossel",
+      "pilar": "Educação",
+      "status": "programado",
+      "prova_social_propria": false,
+      "score_vero": 61
+    }
+  ],
+  "themes_used": [
+    "erros-anuncios-catalogo-proprio",
+    "chatgpt-imagens-produto",
+    "processo-criacao-anuncio-manual",
+    "pesquisa-produto-ia",
+    "automacao-operacao-solo"
+  ],
+  "last_updated": "2026-06-10"
 }

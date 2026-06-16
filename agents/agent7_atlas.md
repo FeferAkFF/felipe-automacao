@@ -285,9 +285,7 @@ Escolher:
 
 # ETAPA 5 — BLUEPRINT VISUAL
 
-Gerar especificação apenas para os formatos complementares.
-
-Não replicar o que Mira já definiu para o formato principal.
+Gerar especificação independente de ferramenta.
 
 Incluir:
 
@@ -411,8 +409,6 @@ Verificar:
 
 [ ] Não repete o roteiro original
 
-[ ] Não repete o que Mira já definiu
-
 [ ] Entrega informação nova
 
 [ ] Complementa o conteúdo principal
@@ -480,19 +476,19 @@ Mensagem Principal:
 
 ---
 
-## O Que Mira Já Definiu
+## O Que Já Foi Explicado
 
-[referência ao arquivo /content/creative_direction/[slug].md]
+[lista]
 
 ---
 
 ## O Que Será Entregue Agora
 
-[lista — apenas o que complementa]
+[lista]
 
 ---
 
-## Blueprint Visual (formatos complementares)
+## Blueprint Visual
 
 [detalhamento completo]
 

@@ -87,6 +87,6 @@ Fase 2 — Mentorias:
 Fase 3 — Palestras e produtos digitais
 
 ## Arquivos de contexto relacionados
-/context/brand_voice.md
-/context/operation_context.md
+/contexts/brand_voice.md
+/contexts/operation_context.md
 /content/content_history.json
