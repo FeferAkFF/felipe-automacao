@@ -7,8 +7,8 @@
 
 # STATUS GERAL
 
-**Fase:** Ciclo 02 produzido e aprovado — aguardando publicação
-**Prioridade imediata:** Felipe gravar e publicar os 5 posts do Ciclo 02 esta semana
+**Fase:** Ciclo 02 + Ciclo 03 prontos — Felipe gravando e testando cenário/luz
+**Prioridade imediata:** Gravar os Reels do Ciclo 02 e 03 em sessão única
 
 ---
 
@@ -18,14 +18,16 @@
 |---------|-------|
 | Seguidores Instagram | 0 (perfil ainda não publicou) |
 | Posts publicados | 0 |
-| Roteiros prontos | 5 (Ciclo 02) |
+| Roteiros prontos para gravar | 10 (Ciclo 02 + Ciclo 03) |
+| Roteiros Reels | 7 |
+| Roteiros Carrossel | 3 |
 | Leads capturados | 0 |
 
 ---
 
 # CONTEXTO REAL DA OPERAÇÃO
 
-- Operação Tulele com ~1 ano de existência
+- Operação Tulele com ~15 meses de existência
 - Opera sozinho: fornecedor, embalagem, atendimento, anúncios, estoque, financeiro
 - Trabalha na loja seg-qua / outro emprego qui-sab
 - Usa ChatGPT para imagens e descrições (manual, um por um)
@@ -54,22 +56,21 @@
 ## 2026-06-10 (parte 3) — CICLO 02 ✓
 - Agente 4 (Clio) evoluído para "Documentador da Operação"
 - Sistema operation_journal criado com comandos simples (`registrar:`, `conteúdo:`, `ideia:`)
-- Ciclo 02 completo executado:
-  - Íris → 5 temas aprovados por Felipe
-  - Nova → 5 roteiros gerados
-  - Vero → 5 roteiros APROVADOS (scores: 66, 67, 63, 64, 61)
-  - Mira → 5 creative directions
-  - Atlas → 5 visual prompts
-  - Saga → calendário semanal 16–21 Jun gerado
-  - content_history.json atualizado
-  - publishing_queue.json atualizado
+- Ciclo 02 completo: 5 roteiros APROVADOS pela Vero (scores: 66, 67, 63, 64, 61)
 
-## 2026-06-16 — PORTAL WEB ✓
-- Portal de conteúdo criado em `/portal/`
-- Deploy no Vercel: https://felipe-automacao-portal-gcfl61mrh.vercel.app/
-- Funcionalidades: Kanban roteiros (Em Análise/Aprovado/No Ar), Quadros, Agentes
-- Sync automático com GitHub: portal lê `/content/roteiros/` direto do repo ao abrir
-- PR #1 mergeado em main — portal em produção com sync ativo
+## 2026-06-16 (parte 1) — PORTAL WEB ✓
+- Portal criado em `/portal/` e deployado no Vercel
+- Funcionalidades: Kanban (Em Análise/Aprovado/No Ar), Quadros, Agentes
+- Sync automático com GitHub ao abrir o portal
+- Session-start hook criado (.claude/hooks/session-start.sh)
+- GitHub Actions workflow criado para atualizar STATE.md diariamente à meia-noite
+
+## 2026-06-16 (parte 2) — CICLO 03 + MELHORIAS PORTAL ✓
+- Ciclo 03: 5 roteiros gerados no novo formato time-coded
+- Agente Nova atualizado: formato [Xs–Ys] obrigatório para Reels com falas completas
+- Portal: aba Carrosséis (slides separados, copiar por slide, gerar prompt de imagem)
+- Portal: botão Imprimir em cada roteiro (versão limpa para papel)
+- PRs #1, #2 mergeados em main — tudo em produção
 
 ---
 
@@ -78,17 +79,27 @@
 ## Ciclo 01 — INVALIDADO
 Descartado. Roteiros assumiam automações fictícias.
 
-## Ciclo 02 — APROVADO, AGUARDANDO PUBLICAÇÃO
+## Ciclo 02 — PRONTO PARA GRAVAR
 
-| Post | Formato | Pilar | Score | Data |
-|------|---------|-------|-------|------|
-| 3 erros no meu catálogo | Reels | Autoridade | 66/70 | 16 Jun (hoje) |
-| ChatGPT para imagens de produto | Carrossel | Educação | 67/70 | 17 Jun |
-| Como crio um anúncio do zero | Reels | Educação | 63/70 | 19 Jun |
-| IA para pesquisar produto | Carrossel | Educação | 64/70 | 20 Jun |
-| O que automatizar numa operação solo | Carrossel | Educação | 61/70 | 21 Jun |
+| Post | Formato | Pilar | Score | Data prevista |
+|------|---------|-------|-------|---------------|
+| 3 erros no meu catálogo | Reels | Autoridade | 66/70 | A definir |
+| ChatGPT para imagens de produto | Carrossel | Educação | 67/70 | A definir |
+| Como crio um anúncio do zero | Reels | Educação | 63/70 | A definir |
+| IA para pesquisar produto | Carrossel | Educação | 64/70 | A definir |
+| O que automatizar numa operação solo | Carrossel | Educação | 61/70 | A definir |
 
-Arquivos em: `/content/roteiros/2026-06-10-*.md`
+## Ciclo 03 — PRONTO PARA GRAVAR (novo formato time-coded)
+
+| Post | Formato | Pilar | Data prevista |
+|------|---------|-------|---------------|
+| Quanto tempo sua operação te toma por semana? | Reels | Autoridade | 23 Jun |
+| Como escrevo um título com IA em 2 minutos | Reels | Educação | 24 Jun |
+| Testei criar uma descrição com IA — antes e depois | Reels | Educação | 26 Jun |
+| Por que refazer 500 anúncios do zero | Reels | Autoridade | 28 Jun |
+| 5 prompts prontos para sellers | Carrossel | Educação | 27 Jun |
+
+Arquivos em: `/content/roteiros/2026-06-16-*.md`
 
 ---
 
@@ -96,8 +107,10 @@ Arquivos em: `/content/roteiros/2026-06-10-*.md`
 
 URL: https://felipe-automacao-portal-gcfl61mrh.vercel.app/
 Stack: HTML/CSS/JS + Vercel serverless + Gemini AI
+Abas: Roteiros (Kanban) | Carrosséis | Quadros | Agentes
 Sync: automático via GitHub API ao abrir — busca `/content/roteiros/` do branch `main`
 Dados locais: status dos roteiros e feedbacks salvos no localStorage do navegador
+Imprimir: botão 🖨️ em cada roteiro para versão limpa em papel
 
 Para ativar geração de versão melhorada por IA: configurar `GOOGLE_AI_API_KEY` no Vercel.
 
@@ -108,7 +121,7 @@ Para ativar geração de versão melhorada por IA: configurar `GOOGLE_AI_API_KEY
 | # | Nome | Função | Output |
 |---|------|--------|--------|
 | 1 | Íris | Radar de tendências / pauta | weekly_topics.md |
-| 2 | Nova | Roteirista | roteiros/*.md |
+| 2 | Nova | Roteirista (formato time-coded) | roteiros/*.md |
 | 3 | Saga | Programação editorial | weekly_calendar.md + content_history.json |
 | 4 | Clio | Documentador da operação | roteiros/*-[categoria]-*.md |
 | 5 | Vero | Auditor editorial (score 0–70) | reviews/*.md + publishing_queue.json |
@@ -122,9 +135,10 @@ Comandos rápidos: `roda o ciclo` / `registrar:` / `conteúdo:` / `ideia:` / `mo
 
 # PRÓXIMOS PASSOS
 
-- [ ] Felipe gravar e publicar os 5 posts do Ciclo 02 (16–21 Jun)
+- [ ] Felipe gravar os Reels do Ciclo 02 e Ciclo 03 em sessão única
+- [ ] Publicar os Carrosséis (usar aba Carrosséis do portal → copiar slides → Canva)
 - [ ] Configurar `GOOGLE_AI_API_KEY` no Vercel para ativar IA no portal
-- [ ] Ciclo 03: rodar após publicação dos primeiros posts
+- [ ] Quando publicar os primeiros posts: marcar como "No Ar" no portal e rodar Ciclo 04
 - [ ] Criar template Canva com identidade visual (#2563EB / #1E293B / #F97316)
 
 ---
@@ -139,8 +153,10 @@ A operação da Tulele pode ser usada como contexto mas não tem resultados de a
 # DECISÕES TOMADAS
 
 - Conteúdo: mistura de exploração + experimentos reais + processo manual atual
+- Formato Reels: time-coded [Xs–Ys] com falas completas e cenas específicas (padrão desde Ciclo 03)
+- Carrosséis: produzir no Canva usando os slides da aba Carrosséis do portal
 - Instagram como canal prioritário na fase 1 (TikTok fase 2, YouTube fase 3)
 - Não oferecer mentoria sem ter cases reais
 - Frequência: 3–4x/semana considerando agenda de Felipe
-- Roadmap de produto: conteúdo → templates gratuitos (500+ seguidores) → infoproduto → mentoria
-- Portal web independente no Vercel para gerenciar roteiros (não misturar com outros projetos)
+- Roadmap: conteúdo → templates gratuitos (500+ seguidores) → infoproduto → mentoria
+- Portal web independente no Vercel — voltar ao Claude Code só para criar coisas novas
