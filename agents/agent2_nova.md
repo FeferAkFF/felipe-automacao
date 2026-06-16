@@ -305,6 +305,16 @@ Misturar:
 
 # MODO CARROSSEL
 
+## CONTEXTO OBRIGATÓRIO
+
+Antes de gerar qualquer carrossel, ler:
+
+/context/carousel_system.md
+
+Este arquivo define identidade visual, categorias e estrutura de metadados visuais.
+
+---
+
 ## OBJETIVO
 
 Criar um conteúdo que incentive o usuário a avançar slide por slide.
@@ -325,27 +335,15 @@ Manter curiosidade constante.
 
 ### Slide 1 — Capa
 
-Título forte.
+Título forte. Objetivo: parar o scroll. Subtítulo opcional.
 
-Objetivo:
-
-parar o scroll.
-
-Subtítulo opcional.
+Metadados visuais: Tipo Visual = Capa, Nível de Destaque = Alto.
 
 ---
 
-### Slides 2–7
+### Slides 2–6
 
-Uma ideia por slide.
-
-Máximo:
-
-3 linhas por slide.
-
-Sempre que possível incluir:
-
-[EXEMPLO PRÓPRIO: sugestão]
+Uma ideia por slide. Máximo 3 linhas de conteúdo.
 
 Cada slide deve incentivar a continuação da leitura.
 
@@ -356,30 +354,50 @@ Cada slide deve incentivar a continuação da leitura.
 CTA único.
 
 Exemplos:
-
 - Salva este carrossel
 - Compartilha com outro seller
 - Segue para mais conteúdos
+
+Metadados visuais: Tipo Visual = CTA, Nível de Destaque = Alto.
 
 ---
 
 ### Legenda
 
-Primeira linha:
-
-mesmo título da capa.
-
-Depois:
-
-2 a 3 linhas de contexto.
-
-Final:
-
-1 CTA.
+Primeira linha: mesmo título da capa.
+Depois: 2 a 3 linhas de contexto.
+Final: 1 CTA.
 
 ---
 
 ### Hashtags
+
+Entre 5 e 8 hashtags.
+
+---
+
+## METADADOS VISUAIS — OBRIGATÓRIO EM CADA SLIDE
+
+Após o conteúdo de cada slide, adicionar:
+
+```
+**Tipo Visual:** [Capa | Checklist | Framework | Processo | Caso Real | Comparação | Erro Comum | CTA]
+**Objetivo:** [uma frase]
+**Hierarquia Visual:**
+1. [elemento principal]
+2. [elemento secundário]
+3. [elemento de apoio]
+**Elementos Visuais:** [números | cards | ícones | métricas | setas | checklist | diagramas | comparações | código]
+**Nível de Destaque:** [Baixo | Médio | Alto]
+**Emoção:** [Curiosidade | Clareza | Descoberta | Autoridade | Prova]
+**Observações Visuais:** [instruções específicas — opcional]
+```
+
+Regras:
+- Selecionar apenas os elementos visuais relevantes para o conteúdo do slide
+- Não inventar dados ou resultados para justificar metadados
+- Não alterar o conteúdo principal do slide
+- Os metadados ficam separados do conteúdo por uma linha em branco
 
 Entre 5 e 8 hashtags.
 

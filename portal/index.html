@@ -1297,54 +1297,138 @@ function renderCarousels() {
   }).join('');
 }
 
+function parseVisualMeta(body) {
+  const get = (key) => {
+    const m = body.match(new RegExp(`\\*{0,2}${key}\\*{0,2}:?\\s*([^\\n]+)`, 'i'));
+    return m ? m[1].trim() : null;
+  };
+  const getBlock = (key) => {
+    const m = body.match(new RegExp(`\\*{0,2}${key}\\*{0,2}:?\\s*\\n([\\s\\S]*?)(?=\\n\\*{0,2}[A-Z]|$)`, 'i'));
+    return m ? m[1].trim() : null;
+  };
+  return {
+    tipo: get('Tipo Visual'),
+    objetivo: get('Objetivo'),
+    hierarquia: getBlock('Hierarquia Visual'),
+    elementos: get('Elementos Visuais'),
+    destaque: get('Nível de Destaque'),
+    emocao: get('Emoção'),
+    observacoes: get('Observações Visuais')
+  };
+}
+
 function buildImagePrompt(roteiraTema, slide, totalSlides) {
   const isFirst = slide.num === 1;
   const isLast = slide.num === totalSlides;
 
-  // Extract clean text from slide body (remove markdown, dashes, etc.)
+  const meta = parseVisualMeta(slide.body);
+
+  // Clean content (remove metadata block from text)
   const cleanText = slide.body
-    .replace(/\*{1,2}([^*]+)\*{1,2}/g, '$1')
+    .replace(/\*{0,2}Tipo Visual\*{0,2}:[\s\S]*/i, '')
+    .replace(/\*{1,2}([^*\n]+)\*{1,2}/g, '$1')
     .replace(/^#{1,3}\s*/gm, '')
     .replace(/^---+$/gm, '')
     .trim();
 
-  // Extract title/headline from first bold or first line
-  const firstLine = cleanText.split('\n').find(l => l.trim()) || roteiraTema;
-  const bodyLines = cleanText.split('\n').filter(l => l.trim() && l.trim() !== firstLine);
+  const lines = cleanText.split('\n').filter(l => l.trim());
+  const firstLine = lines[0] || roteiraTema;
+  const bodyLines = lines.slice(1);
 
-  // Build the text overlay block
+  // Determine visual type
+  const tipoVisual = meta.tipo || (isFirst ? 'Capa' : isLast ? 'CTA' : 'Framework');
+  const destaque = meta.destaque || 'Médio';
+  const emocao = meta.emocao || 'Clareza';
+  const elementos = meta.elementos || 'cards, tipografia';
+  const observacoes = meta.observacoes || '';
+
+  // Layout by type
+  const layouts = {
+    'Capa': `- Full-bleed dark background (#0F172A)
+- Large centered headline in Montserrat ExtraBold, white
+- Subtitle below in Inter, gray #94A3B8
+- Thin accent bar or underline in #2563EB
+- Bottom right: small brand tag`,
+    'Checklist': `- Dark background (#0F172A)
+- Orange number top-left (#F97316)
+- Section title in Montserrat ExtraBold
+- Checklist items with checkmark icons in #2563EB
+- Each item in a subtle card (#1E293B) with rounded corners`,
+    'Framework': `- Dark background (#0F172A)
+- Large orange slide number top-left
+- Title in Montserrat ExtraBold
+- Numbered steps or framework elements in cards (#1E293B)
+- Accent bar left in #2563EB`,
+    'Processo': `- Dark background (#0F172A)
+- Sequential steps connected by arrows or numbers
+- Each step in a card (#1E293B)
+- Orange (#F97316) highlights for key actions
+- Clean flow from top to bottom or left to right`,
+    'Caso Real': `- Dark background (#0F172A)
+- Metric or result as large hero number in orange #F97316
+- Context text below in Inter
+- Card border in #2563EB
+- Minimal, impactful — let the number breathe`,
+    'Comparação': `- Dark background (#0F172A)
+- Two-column layout: left (wrong/before) vs right (correct/after)
+- Red accent for negative, blue/green for positive
+- Clear visual separation`,
+    'Erro Comum': `- Dark background (#0F172A)
+- Red accent (#EF4444) for the error element
+- Bold title with warning visual treatment
+- Fix or lesson below in lighter tone`,
+    'CTA': `- Dark background (#0F172A)
+- Large bold CTA text centered, white
+- Orange (#F97316) button or underline element
+- Arrow or follow icon
+- Minimal — maximum visual focus on the action`
+  };
+
+  const layout = layouts[tipoVisual] || layouts['Framework'];
+
+  // Text overlay
   let textOverlay = '';
   if (isFirst) {
-    textOverlay = `HEADLINE (large, centered): "${firstLine}"
-SUBTEXT (smaller, below): "${bodyLines.slice(0,2).join(' | ')}"
-BOTTOM TAG: "Salva este carrossel"`;
+    textOverlay = `HEADLINE (Montserrat ExtraBold, large, white): "${firstLine}"
+SUBTITLE (Inter, gray #94A3B8): "${bodyLines.slice(0,2).join(' ')}"`;
   } else if (isLast) {
-    textOverlay = `MAIN TEXT (large, centered): "${firstLine}"
-CTA BUTTON STYLE (rounded rectangle, orange #F97316): "${bodyLines[0] || 'Comenta aqui'}"`;
+    textOverlay = `CTA TEXT (Montserrat ExtraBold, large, white): "${firstLine}"
+ACTION (orange #F97316 styled): "${bodyLines[0] || 'Comenta aqui'}"`;
   } else {
-    textOverlay = `SLIDE NUMBER (top left, orange #F97316, bold): "0${slide.num}"
-SECTION TITLE (large, white, Montserrat): "${firstLine}"
-BODY TEXT (smaller, gray #94A3B8): "${bodyLines.slice(0,3).join(' / ')}"`;
+    textOverlay = `SLIDE NUMBER (top-left, Montserrat ExtraBold, #F97316): "${slide.num}"
+TITLE (Montserrat ExtraBold, white): "${firstLine}"
+BODY (Inter, #94A3B8): "${bodyLines.slice(0,3).join(' / ')}"`;
   }
 
-  return `Create a 1080x1080px Instagram carousel slide (slide ${slide.num} of ${totalSlides}) for a Brazilian e-commerce/marketplace content creator.
+  return `Create a 1080x1080px Instagram carousel slide — slide ${slide.num} of ${totalSlides}.
+
+CONTEXT: Brazilian e-commerce/marketplace content creator. Dark mode, premium, technical.
 
 VISUAL IDENTITY:
-- Background: #0F172A (very dark navy)
-- Card/section background: #1E293B
-- Primary accent: #2563EB (blue)
-- Highlight accent: #F97316 (orange) — use for numbers, highlights, CTAs
-- Text primary: #F1F5F9 (near white)
-- Text secondary: #94A3B8 (muted gray)
-- Font style: Montserrat ExtraBold for titles, Inter for body text
+- Background: #0F172A
+- Cards: #1E293B
+- Primary blue: #2563EB
+- Highlight orange: #F97316
+- Text: #F1F5F9
+- Secondary text: #94A3B8
+- Title font: Montserrat ExtraBold
+- Body font: Inter
+- Style reference: Vercel, Stripe, Linear — minimal, clean, technical
+
+SLIDE TYPE: ${tipoVisual}
+EMPHASIS LEVEL: ${destaque}
+EMOTION: ${emocao}
+VISUAL ELEMENTS TO USE: ${elementos}
 
 LAYOUT:
-${isFirst ? '- Full-bleed dark background\n- Centered layout\n- Large bold headline\n- Optional thin top bar in #2563EB\n- Logo or profile tag bottom right (small, subtle)' : isLast ? '- Dark background\n- Centered CTA\n- Large bold text\n- Prominent orange button element\n- Arrow or follow icon' : '- Dark background\n- Large slide number top-left in orange\n- Section title below number\n- Body text in lighter gray\n- Thin left accent bar in #2563EB\n- Clean minimal layout, lots of breathing room'}
+${layout}
 
 TEXT ON SLIDE:
 ${textOverlay}
+${meta.hierarquia ? `\nVISUAL HIERARCHY:\n${meta.hierarquia}` : ''}
+${observacoes ? `\nSPECIAL INSTRUCTIONS: ${observacoes}` : ''}
 
-STYLE: Professional dark-mode design, clean and technical. No people, no faces, no stock photos. Pure typography and geometric elements only. Instagram-ready, high contrast, legible on mobile.`;
+RULES: No people, no faces, no stock photos, no emojis, no motivational marketing aesthetic. Pure typography, geometric elements, and data visualization only. High contrast, mobile-legible.`;
 }
 
 function slideCardHTML(roteiroId, slide, totalSlides) {

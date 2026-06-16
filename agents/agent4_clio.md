@@ -442,9 +442,11 @@ Exemplos:
 
 ## Se CARROSSEL
 
+Antes de gerar, ler obrigatoriamente: /context/carousel_system.md
+
 ### Slide 1
 
-Título forte.
+Título forte. Tipo Visual = Capa.
 
 ---
 
@@ -456,7 +458,28 @@ Uma ideia por slide. Máximo 3 linhas.
 
 ### Último Slide
 
-CTA único.
+CTA único. Tipo Visual = CTA.
+
+---
+
+### Metadados Visuais — obrigatório em cada slide
+
+Após o conteúdo de cada slide, adicionar:
+
+```
+**Tipo Visual:** [Capa | Checklist | Framework | Processo | Caso Real | Comparação | Erro Comum | CTA]
+**Objetivo:** [uma frase]
+**Hierarquia Visual:**
+1. [elemento principal]
+2. [elemento secundário]
+3. [elemento de apoio]
+**Elementos Visuais:** [números | cards | ícones | métricas | setas | checklist | diagramas | comparações | código]
+**Nível de Destaque:** [Baixo | Médio | Alto]
+**Emoção:** [Curiosidade | Clareza | Descoberta | Autoridade | Prova]
+**Observações Visuais:** [instruções específicas — opcional]
+```
+
+Não alterar o conteúdo principal. Não inventar dados. Selecionar apenas elementos visuais relevantes.
 
 ---
 
