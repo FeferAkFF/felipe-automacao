@@ -1,14 +1,14 @@
 # STATE.md — Felipe Automação Sellers
 
 > Estado atual do projeto. Atualizado ao final de cada sessão.
-> Última atualização: 2026-06-16
+> Última atualização: 2026-06-17
 
 ---
 
 # STATUS GERAL
 
-**Fase:** Ciclo 02 + Ciclo 03 prontos — Felipe gravando e testando cenário/luz
-**Prioridade imediata:** Gravar os Reels do Ciclo 02 e 03 em sessão única
+**Fase:** Ciclo 02 + Ciclo 03 prontos — sistema de carrosséis HTML em construção
+**Prioridade imediata:** Integrar geração de slides HTML no portal via Anthropic API
 
 ---
 
@@ -72,6 +72,15 @@
 - Portal: botão Imprimir em cada roteiro (versão limpa para papel)
 - PRs #1, #2 mergeados em main — tudo em produção
 
+## 2026-06-17 — SISTEMA DE CARROSSÉIS HTML ✓ (em andamento)
+- Carrossel teste criado: "Como uso IA para criar descrição de produto em 3 passos" (7 slides)
+- Sistema completo de metadados visuais por slide (Tipo Visual, Hierarquia, Emoção, Asset)
+- context/carousel_system.md criado com identidade visual e regras
+- Claude Project "Carrosséis FF" criado no claude.ai com prompt de sistema calibrado
+- Slides 2 e 3 testados e aprovados visualmente — qualidade equivalente ao brandsdecoded
+- Decisão: integrar geração de slides HTML direto no portal via Anthropic API
+- Fluxo futuro: portal → Gerar Slide → iframe renderizado → Imprimir PNG
+
 ---
 
 # CICLOS
@@ -106,13 +115,18 @@ Arquivos em: `/content/roteiros/2026-06-16-*.md`
 # PORTAL WEB
 
 URL: https://felipe-automacao-portal-gcfl61mrh.vercel.app/
-Stack: HTML/CSS/JS + Vercel serverless + Gemini AI
+Stack: HTML/CSS/JS + Vercel serverless + Anthropic API (planejado)
 Abas: Roteiros (Kanban) | Carrosséis | Quadros | Agentes
 Sync: automático via GitHub API ao abrir — busca `/content/roteiros/` do branch `main`
 Dados locais: status dos roteiros e feedbacks salvos no localStorage do navegador
 Imprimir: botão 🖨️ em cada roteiro para versão limpa em papel
 
-Para ativar geração de versão melhorada por IA: configurar `GOOGLE_AI_API_KEY` no Vercel.
+Para ativar geração de slides HTML: configurar `ANTHROPIC_API_KEY` no Vercel.
+
+## Claude Project — Carrosséis FF
+Sistema paralelo no claude.ai para geração manual de slides HTML.
+Prompt de sistema calibrado com identidade visual completa.
+Usar enquanto integração do portal não está pronta.
 
 ---
 
@@ -135,11 +149,11 @@ Comandos rápidos: `roda o ciclo` / `registrar:` / `conteúdo:` / `ideia:` / `mo
 
 # PRÓXIMOS PASSOS
 
+- [ ] Configurar `ANTHROPIC_API_KEY` no Vercel (console.anthropic.com → API Keys)
+- [ ] Integrar geração de slides HTML no portal (botão "Gerar Slide" na aba Carrosséis)
 - [ ] Felipe gravar os Reels do Ciclo 02 e Ciclo 03 em sessão única
-- [ ] Publicar os Carrosséis (usar aba Carrosséis do portal → copiar slides → Canva)
-- [ ] Configurar `GOOGLE_AI_API_KEY` no Vercel para ativar IA no portal
+- [ ] Publicar os Carrosséis (via Claude Project "Carrosséis FF" → screenshot → Instagram)
 - [ ] Quando publicar os primeiros posts: marcar como "No Ar" no portal e rodar Ciclo 04
-- [ ] Criar template Canva com identidade visual (#2563EB / #1E293B / #F97316)
 
 ---
 
@@ -154,7 +168,8 @@ A operação da Tulele pode ser usada como contexto mas não tem resultados de a
 
 - Conteúdo: mistura de exploração + experimentos reais + processo manual atual
 - Formato Reels: time-coded [Xs–Ys] com falas completas e cenas específicas (padrão desde Ciclo 03)
-- Carrosséis: produzir no Canva usando os slides da aba Carrosséis do portal
+- Carrosséis: produzir via Claude Project "Carrosséis FF" (HTML renderizado → screenshot) — substituindo Canva
+- Carrosséis: migrar para geração direto no portal quando ANTHROPIC_API_KEY estiver configurada
 - Instagram como canal prioritário na fase 1 (TikTok fase 2, YouTube fase 3)
 - Não oferecer mentoria sem ter cases reais
 - Frequência: 3–4x/semana considerando agenda de Felipe
